@@ -1,6 +1,6 @@
 double waterTankLevel = 0.0;
-double waterTankEmptyResistence = 32.6;
-double waterTankFullResistence = ;
+double waterTankEmptyResistence = 32.6; // resistence measured when water tank is empty
+double waterTankFullResistence = 8; // resistence measured when water tank is full
 
 void setup() {
   Serial.begin(9600);
