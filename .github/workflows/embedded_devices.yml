@@ -30,8 +30,7 @@ jobs:
           - arduino-platform: "arduino:avr"
             fqbn: "arduino:avr:unowifi"
 
-    # This is the platform GitHub will use to run our workflow, we
-    # runs-on: windows-latest
+    # This is the platform GitHub will use to run our workflow
     runs-on: ubuntu-latest
 
     # This is the list of steps this job will run.
