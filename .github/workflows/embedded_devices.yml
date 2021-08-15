@@ -1,5 +1,8 @@
 name: embedded devices
-on: push         
+on: push     
+board_manager:
+    additional_urls:
+        - http://arduino.esp8266.com/stable/package_esp8266com_index.json
             
 # This is the list of jobs that will be run concurrently.
 # Since we use a build matrix, the actual number of jobs
@@ -45,10 +48,6 @@ jobs:
       # configure the Arduino CLI on the system.
       - name: Setup Arduino CLI
         uses: arduino/setup-arduino-cli@v1
-        board_manager:
-            additional_urls:
-                - http://arduino.esp8266.com/stable/package_esp8266com_index.json
-
 
       # We then install the platform, which one will be determined
       # dynamically by the build matrix.
