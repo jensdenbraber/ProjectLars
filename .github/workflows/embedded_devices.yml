@@ -29,7 +29,7 @@ jobs:
             fqbn: "arduino:samd:nano_33_iot"
           - arduino-platform: "arduino:avr"
             fqbn: "arduino:avr:unowifi"
-          - arduino-platform: "esp8266:esp8266"
+          - arduino-platform: "esp8266:esp8266 --additional-urls https://arduino.esp8266.com/stable/package_esp8266com_index.json"
             fqbn: "esp8266:esp8266:d1"
 
     # This is the platform GitHub will use to run our workflow
