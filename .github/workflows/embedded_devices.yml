@@ -1,8 +1,5 @@
 name: embedded devices
 on: push     
-board_manager:
-    additional_urls:
-        - http://arduino.esp8266.com/stable/package_esp8266com_index.json
             
 # This is the list of jobs that will be run concurrently.
 # Since we use a build matrix, the actual number of jobs
