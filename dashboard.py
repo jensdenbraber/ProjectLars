@@ -15,9 +15,6 @@ window = Tk()
 window.title("LARS Dashboard")
 window.geometry('1024x800')
 
-#lbl = Label(window, text="Boiler")
-#lbl.grid(column=0, row=0)
-
 def boiler_50_clicked():
     boiler_70.off()
     sleep(1) 
@@ -65,6 +62,7 @@ btn_70['font'] = myFont
 btn_waterpomp['font'] = myFont
 btn_relais4['font'] = myFont
 
+
 btn_50.grid(column=0, row=0, padx=20, pady=20)
 btn_70.grid(column=1, row=0, padx=20, pady=20)
 btn_waterpomp.grid(column=0, row=0, padx=20, pady=20)
@@ -84,6 +82,7 @@ water_level_value_lbl = Label(water_level_frame)
 water_level_value_lbl.grid(column=1, row=0, padx=20, pady=20)
 
 btn_water_level = Button(water_level_frame, text="Update water level", command=get_water_level)
+btn_water_level['font'] = font.Font(size=20)
 btn_water_level.grid(column=2, row=0, padx=20, pady=20)
 
 
