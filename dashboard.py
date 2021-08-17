@@ -15,8 +15,8 @@ window = Tk()
 window.title("LARS Dashboard")
 window.geometry('1024x800')
 
-lbl = Label(window, text="Boiler")
-lbl.grid(column=0, row=0)
+#lbl = Label(window, text="Boiler")
+#lbl.grid(column=0, row=0)
 
 def boiler_50_clicked():
     boiler_70.off()
@@ -49,34 +49,42 @@ def create_circle(x, y, r, canvasName): #center coordinates, radius
     
 myFont = font.Font(size=30)
 
-btn_50 = Button(window, text="50 Graden", command=boiler_50_clicked)
-btn_70 = Button(window, text="70 Graden", command=boiler_70_clicked)
-btn_waterpomp = Button(window, text="Waterpomp", command=waterpomp_clicked)
-btn_relais4 = Button(window, text="relais 4", command=relais4_clicked)
+boiler_frame = LabelFrame(window, text='Boiler')
+boiler_frame.grid(column=0, row=0, padx=20, pady=20)
 
+other_frame = LabelFrame(window, text='Other')
+other_frame.grid(column=0, row=1, padx=20, pady=20)
+
+btn_50 = Button(boiler_frame, text="50 Graden", command=boiler_50_clicked)
+btn_70 = Button(boiler_frame, text="70 Graden", command=boiler_70_clicked)
+btn_waterpomp = Button(other_frame, text="Waterpomp", command=waterpomp_clicked)
+btn_relais4 = Button(other_frame, text="relais 4", command=relais4_clicked)
 
 btn_50['font'] = myFont
 btn_70['font'] = myFont
 btn_waterpomp['font'] = myFont
 btn_relais4['font'] = myFont
 
-btn_50.grid(column=1, row=2)
-btn_70.grid(column=2, row=2)
-btn_waterpomp.grid(column=1, row=3)
-btn_relais4.grid(column=2, row=3)
+btn_50.grid(column=0, row=0, padx=20, pady=20)
+btn_70.grid(column=1, row=0, padx=20, pady=20)
+btn_waterpomp.grid(column=0, row=0, padx=20, pady=20)
+btn_relais4.grid(column=1, row=0, padx=20, pady=20)
 
 
 canvas = Canvas(window, width=60, height=60, borderwidth=0, highlightthickness=0)#, bg="red")
 canvas.grid(column=3, row=2)
 
-water_level_text_lbl = Label(window, text="Water level")
-water_level_text_lbl.grid(column=0, row=4)
+water_level_frame = LabelFrame(window, text='Water tank level')
+water_level_frame.grid(column=0, row=2, padx=20, pady=20)
 
-water_level_value_lbl = Label(window)
-water_level_value_lbl.grid(column=1, row=4)
+water_level_text_lbl = Label(water_level_frame, text="Water level")
+water_level_text_lbl.grid(column=0, row=0, padx=20, pady=20)
 
-btn_water_level = Button(window, text="Update water level", command=get_water_level)
-btn_water_level.grid(column=2, row=4)
+water_level_value_lbl = Label(water_level_frame)
+water_level_value_lbl.grid(column=1, row=0, padx=20, pady=20)
+
+btn_water_level = Button(water_level_frame, text="Update water level", command=get_water_level)
+btn_water_level.grid(column=2, row=0, padx=20, pady=20)
 
 
 if False:
