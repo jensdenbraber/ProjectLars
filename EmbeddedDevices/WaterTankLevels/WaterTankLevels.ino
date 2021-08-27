@@ -36,17 +36,10 @@ void setup() {
   Serial.print("http://");
   Serial.print(WiFi.localIP());
   Serial.println("/");
-
-
-  // if analog input pin 0 is unconnected, random analog
-  // noise will cause the call to randomSeed() to generate
-  // different seed numbers each time the sketch runs.
-  // randomSeed() will then shuffle the random function.
-  randomSeed(analogRead(0));
 }
 
 void loop() {
-  int sensorwaterTankLevel = random(100); // analogRead(A0);
+  int sensorwaterTankLevel = analogRead(A0);
   waterTankLevel = map(sensorwaterTankLevel, waterTankFullResistence, waterTankEmptyResistence, 0, 100);
   
   waterTankLevel = max(waterTankLevel, 0.0);
