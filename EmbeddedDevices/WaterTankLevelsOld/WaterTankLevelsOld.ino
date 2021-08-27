@@ -9,6 +9,8 @@ double waterTankFullResistence = 192; // resistence measured when water tank is 
 
 void setup() {
   Serial.begin(9600);
+
+  pinMode(LED_BUILTIN, OUTPUT);
  
   delay(10);
   
@@ -73,6 +75,10 @@ void loop() {
   client.print("\"waterTankLevel\":");
   client.println(waterTankLevel);
   client.println("}");
+
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
  
   delay(1);
   Serial.println("Client disconnected");
