@@ -1,2 +1,2 @@
-const char* ssid = "Jenskia";
-const char* password = "oN555S%EJIZB4!AZ";
+const char* ssid = "<ssid>";
+const char* password = "<password>";
