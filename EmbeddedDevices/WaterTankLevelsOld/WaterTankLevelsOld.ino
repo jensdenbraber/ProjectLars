@@ -58,13 +58,22 @@ void loop() {
   // Check if a client has connected
   WiFiClient client = server.available();
   if (!client) {
+    
+    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(500);                       // wait for a second
+    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+    delay(500);                       // wait for a second
     return;
   }
  
   // Wait until the client sends some data
   Serial.println("new client");
   while(!client.available()){
-    delay(1);
+    //delay(1);
+    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(500);                       // wait for a second
+    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+    delay(500);                       // wait for a second
   }
   
   // Return the response
