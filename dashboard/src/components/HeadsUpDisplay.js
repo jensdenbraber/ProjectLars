@@ -1,11 +1,11 @@
-import React, { Suspense, useRef, useState, useEffect } from 'react';
+import React from 'react';
+import { Home, PowerSettingsNew } from '@mui/icons-material';
 
 import WaterTankLevels from './WaterTankLevels/waterTankLevels';
 import PowerLevels from './Power/PowerLevels';
 import Boiler from './Boiler/Boiler'
 import Gas from './Gas/GasLevels'
-import moment from 'moment'
-import { Home, LocalGasStation, WbSunny, FlashOn, PowerSettingsNew } from '@mui/icons-material';
+import Clock from './Clock'
 
 import FloatingBox from './FloatingBox';
 
@@ -31,8 +31,8 @@ const HeadsUpDisplay = ({ mqttSub, mqttPublish, unSub, showUnsub, payload }) => 
             <FloatingBox top="60%" left="80%" width="13%" height="30%" icon={<PowerSettingsNew className="full-screen" />}>
                 Power on/off
             </FloatingBox>
-            <FloatingBox top="5%" left="80%" width="13%" height="15%" buttonChildren={<>{moment(new Date()).format("D MMMM HH:mm")}</>}>
-            </FloatingBox>
+            <Clock>
+            </Clock>
         </>
     );
 }
