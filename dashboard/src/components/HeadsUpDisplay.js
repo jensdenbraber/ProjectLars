@@ -13,10 +13,6 @@ function showAlert(text) {
     alert(text)
 }
 
-function updateSome() {
-    // setCameraPosition({ position: [-10, -15, -15], fov: 50 })
-}
-
 const HeadsUpDisplay = ({ mqttSub, mqttPublish, unSub, showUnsub, payload }) => {
 
     return (
@@ -40,6 +36,5 @@ const HeadsUpDisplay = ({ mqttSub, mqttPublish, unSub, showUnsub, payload }) => 
         </>
     );
 }
-// }
 
 export default HeadsUpDisplay;
