@@ -1,62 +1,42 @@
 // import logo from './logo.svg';
 import './App.css';
-// import React from 'react';
-
 import React, { Suspense, useRef, useState, useEffect } from 'react'
 import mqtt from 'mqtt';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { Canvas, useLoader, useFrame } from '@react-three/fiber'
-import { OrbitControls, Sky, Stats, useGLTF } from "@react-three/drei";
-
-import qwe from './components/MqttBase'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
 
 import HUD from './components/HeadsUpDisplay';
 
-// function ArWing() {
-//   const group = useRef();
-//   const { nodes } = useLoader(GLTFLoader, "models/arwing.glb");
-//   return (
-//     <group ref={group}>
-//       <mesh visible geometry={nodes.Default.geometry}>
-//         <meshStandardMaterial
-//           attach="material"
-//           color="white"
-//           roughness={0.3}
-//           metalness={0.3}
-//         />
-//       </mesh>
-//     </group>
-//   );
-// }
 
-function Camper(props) {
-  const { scene } = useGLTF("/Truck_test.glb");
-  return <primitive object={scene} />;
-}
 
-function CamperModel(props) {
-  // const { scene } = useGLTF("/Truck_test.glb");
-  const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/Truck_test.glb");
-
-  // return <primitive object={scene} />;
-
-  return (
-    <group ref={group}>
-      <mesh visible geometry={nodes.Default.geometry}>
-        {/* <meshStandardMaterial
-          attach="material"
-          color="white"
-          roughness={0.3}
-          metalness={0.3}
-        /> */}
-      </mesh>
-    </group>
-  );
-
+function Loader() {
+  const { progress } = useProgress()
+  return <Html center>{progress} % loaded</Html>
 }
 
 function App() {
+
+  function Camper(props) {
+    // useGLTF.preload("/Truck_test.glb")
+    const { scene } = useGLTF("Truck_test.glb");
+    return <primitive object={scene} />;
+  }
+
+  // const [CameraPositionZ, setCameraPositionZ] = React.useState(1)
+
+  // function Dolly() {
+  //   useFrame((state) => {
+  //     state.camera.position.z = 15 + { CameraPositionZ }
+  //     // state.camera.position.z = 50 + Math.sin(state.clock.getElapsedTime()) * 30
+  //     state.camera.updateProjectionMatrix()
+  //   })
+
+  //   return null
+  // }
+
+
+
   const [connectStatus, setConnectStatus] = useState('Connect');
   const [payload, setPayload] = useState({});
 
@@ -95,22 +75,22 @@ function App() {
     }
   }, [client]);
 
-  const [cameraOptions, setcameraOptions] = useState({ position: [-10, 15, 15], fov: 50 })
-  const [cameraX, setcameraX] = useState(0)
-  const [cameraY, setcameraY] = useState(10)
-  const [cameraZ, setcameraZ] = useState(10)
+  // const [cameraOptions, setcameraOptions] = useState({ position: [-10, 15, 15], fov: 50 })
+  // const [cameraX, setcameraX] = useState(0)
+  // const [cameraY, setcameraY] = useState(10)
+  // const [cameraZ, setcameraZ] = useState(10)
 
-  useEffect(() => {
-    console.log("Camera value changed to: " + cameraX)
-  }, [cameraX])
+  // useEffect(() => {
+  //   console.log("Camera value changed to: " + cameraX)
+  // }, [cameraX])
 
   useEffect(() => {
     console.log("connectionStatus: " + connectStatus)
   }, [connectStatus])
 
-  useEffect(() => {
-    console.log("connectionStatus: " + cameraX)
-  }, [Canvas])
+  // useEffect(() => {
+  //   console.log("connectionStatus: " + cameraX)
+  // }, [Canvas])
 
   const mqttDisconnect = () => {
     if (client) {
@@ -161,19 +141,19 @@ function App() {
     <>
       {/* //     <FullScreen> */}
       <div className="fixed" style={{ zindex: 6, top: "0%", left: "0%", width: "85%", height: "70%" }}>
-        <Canvas className="box" pixelRatio={[1, 2]} camera={{ position: [cameraX, cameraY, cameraZ], fov: 50 }}>
+        <Canvas className="box" pixelRatio={[1, 2]} camera={{ position: [-10, 15, 15], fov: 50 }}>
           <ambientLight intensity={0.5} />
           <Suspense fallback={null}>
             <Camper />
           </Suspense>
           {/* <Stats showPanel={0} /> */}
-          <OrbitControls
+          {/* <OrbitControls
             enableZoom={false}
             rotateSpeed={2}
             // autoRotate={true}
             autoRotateSpeed={5}>
-          </OrbitControls>
-
+          </OrbitControls> */}
+          {/* <Dolly /> */}
         </Canvas>
       </div>
       <HUD className="overlay" mqttSub={mqttSub} mqttPublish={mqttPublish} mqttUnSub={mqttUnSub} mqttDisconnect={mqttDisconnect} payload={payload}></HUD>
