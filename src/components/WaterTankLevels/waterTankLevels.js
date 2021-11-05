@@ -1,7 +1,7 @@
 import { LocalDrink } from '@mui/icons-material';
 
-import GrayWater from './grayWater';
-import CleanWater from './cleanWater';
+import GrayWater from './GrayWater';
+import CleanWater from './CleanWater';
 import FloatingBox from '../FloatingBox';
 
 const WaterTankLevels = (props) => {
