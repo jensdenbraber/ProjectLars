@@ -1,7 +1,7 @@
 import React from 'react';
 import { Home, PowerSettingsNew } from '@mui/icons-material';
 
-import WaterTankLevels from './WaterTankLevels/WaterTankLevels';
+import WaterTankLevels from './WaterTankLevels/waterTankLevels';
 import PowerLevels from './Power/PowerLevels';
 import Boiler from './Boiler/Boiler'
 import Gas from './Gas/GasLevels'
