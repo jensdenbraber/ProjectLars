@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-const Refrigerator = ({ mqttSub, payload }) => {
+const Refrigerator = (props) => {
 
     const record = {
         topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
         qos: 0
     };
 
+    const payload = props.connection.payload
+
     useEffect(() => {
-        mqttSub(record);
+        props.connection.subscribe(record);
     })
 
     const [messages, setMessages] = useState(null)

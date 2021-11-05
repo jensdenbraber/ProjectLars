@@ -4,15 +4,17 @@ import { LocalGasStation } from '@mui/icons-material';
 
 import FloatingBox from '../FloatingBox';
 
-const WaterTankLevels = ({ mqttSub, unSub, showUnsub, payload }) => {
+const GasLevels = (props) => {
 
     const record = {
         topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
         qos: 0
     };
 
+    const payload = props.connection.payload
+
     useEffect(() => {
-        mqttSub(record);
+        props.connection.subscribe(record);
     })
 
     const [messages, setMessages] = useState(null)
@@ -45,7 +47,7 @@ const WaterTankLevels = ({ mqttSub, unSub, showUnsub, payload }) => {
 
     return (
         <>
-            <FloatingBox top="60%" left="50%" width="13%" height="30%" icon={<LocalGasStation style={{ fill: "orange" }} className="full-screen" />}>
+            <FloatingBox {...props} icon={<LocalGasStation style={{ fill: "orange" }} className="full-screen" />}>
                 <Slider style={{ minHeight: "100%" }}
                     onChange={handleSliderChange}
                     aria-label="Always visible"
@@ -60,4 +62,4 @@ const WaterTankLevels = ({ mqttSub, unSub, showUnsub, payload }) => {
     );
 }
 
-export default WaterTankLevels;
+export default GasLevels;

@@ -1,14 +1,13 @@
 // import logo from './logo.svg';
 import './App.css';
-import React, { Suspense, useRef, useState, useEffect } from 'react'
+import React, { Suspense, useState, useEffect } from 'react';
 import mqtt from 'mqtt';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useGLTF, Html, useProgress } from "@react-three/drei";
+import Button from '@mui/material/Button';
 
-import HUD from './components/HeadsUpDisplay';
-
-
+import HeadsUpDisplay from './components/HeadsUpDisplay';
 
 function Loader() {
   const { progress } = useProgress()
@@ -18,42 +17,51 @@ function Loader() {
 function App() {
 
   function Camper(props) {
-    // useGLTF.preload("/Truck_test.glb")
-    const { scene } = useGLTF("Truck_test.glb");
+    const { scene } = useGLTF("./ProjectLars/Truck_test.glb");
     return <primitive object={scene} />;
   }
 
-  // const [CameraPositionZ, setCameraPositionZ] = React.useState(1)
+  const [currentStep, setCurrentStep] = React.useState(0)
 
-  // function Dolly() {
-  //   useFrame((state) => {
-  //     state.camera.position.z = 15 + { CameraPositionZ }
-  //     // state.camera.position.z = 50 + Math.sin(state.clock.getElapsedTime()) * 30
-  //     state.camera.updateProjectionMatrix()
-  //   })
+  function CameraAnimation() {
+    useFrame((state) => {
 
-  //   return null
-  // }
+      if (currentStep > 0) {
 
+        state.camera.position.x = state.camera.position.x + tween.x
+        state.camera.position.y = state.camera.position.y + tween.y
+        state.camera.position.z = state.camera.position.z + tween.z
 
+        state.camera.rotation.x = state.camera.rotation.x + tween.rotation_x
+        state.camera.rotation.y = state.camera.rotation.y + tween.rotation_y
+        state.camera.rotation.z = state.camera.rotation.z + tween.rotation_z
+
+        setCurrentStep(currentStep - 1)
+      }
+
+      setCameraPosition({
+        x: state.camera.position.x, y: state.camera.position.y, z: state.camera.position.z,
+        rotation_x: state.camera.rotation.x,
+        rotation_y: state.camera.rotation.y,
+        rotation_z: state.camera.rotation.z
+      })
+
+      state.camera.updateProjectionMatrix()
+    })
+
+    return null
+  }
 
   const [connectStatus, setConnectStatus] = useState('Connect');
   const [payload, setPayload] = useState({});
 
-  const [messages, setMessages] = useState([]);
-
   const [client, setClient] = useState(null)
 
-  const [value, setValue] = React.useState(30);
-  const [CameraPosition, setCameraPosition] = React.useState({ position: [-10, 15, 15], fov: 50 });
+  const [tween, setTween] = React.useState(null);
+  const [cameraPosition, setCameraPosition] = React.useState({ x: -10, y: 15, z: 15 });
 
   useEffect(() => {
-    // const client = mqtt.connect("ws://192.168.68.53:9001");
     setClient(mqtt.connect("ws://192.168.68.53:9001"));
-    // client.on('connect', () => setConnectionStatus(true));
-    // client.on('message', (topic, payload, packet) => {
-    //   setMessages(messages.concat(payload.toString()));
-    // });
   }, []);
 
   useEffect(() => {
@@ -75,22 +83,9 @@ function App() {
     }
   }, [client]);
 
-  // const [cameraOptions, setcameraOptions] = useState({ position: [-10, 15, 15], fov: 50 })
-  // const [cameraX, setcameraX] = useState(0)
-  // const [cameraY, setcameraY] = useState(10)
-  // const [cameraZ, setcameraZ] = useState(10)
-
-  // useEffect(() => {
-  //   console.log("Camera value changed to: " + cameraX)
-  // }, [cameraX])
-
   useEffect(() => {
     console.log("connectionStatus: " + connectStatus)
   }, [connectStatus])
-
-  // useEffect(() => {
-  //   console.log("connectionStatus: " + cameraX)
-  // }, [Canvas])
 
   const mqttDisconnect = () => {
     if (client) {
@@ -119,7 +114,6 @@ function App() {
           console.log('Subscribe to topics error', error)
           return
         }
-        // setIsSub(true)
       });
     }
   };
@@ -132,10 +126,38 @@ function App() {
           console.log('Unsubscribe error', error)
           return
         }
-        // setIsSub(false);
       });
     }
   };
+
+  const connection = {
+    subscribe: mqttSub,
+    unsubscibe: mqttUnSub,
+    publish: mqttPublish,
+    disconnect: mqttDisconnect,
+    payload: payload
+  }
+
+  const buttonClick = () => startMovingCamera({ x: 0, y: 0, z: 20, rotation_x: 0, rotation_y: 0, rotation_z: 0 })
+  const buttonClick2 = () => startMovingCamera({ x: 0, y: 20, z: 0, rotation_x: -90, rotation_y: 0, rotation_z: 0 })
+
+  const startMovingCamera = (endPosition) => {
+    const stepsize = 50
+    setCurrentStep(stepsize)
+    setTween(calculateTween(cameraPosition, endPosition, stepsize))
+  }
+
+  const calculateTween = (currentPosition, endPosition, stepSize) => {
+    return {
+      x: (endPosition.x - currentPosition.x) / stepSize,
+      y: (endPosition.y - currentPosition.y) / stepSize,
+      z: (endPosition.z - currentPosition.z) / stepSize,
+
+      rotation_x: (endPosition.rotation_x * 0.0174533 - currentPosition.rotation_x) / stepSize,
+      rotation_y: (endPosition.rotation_y * 0.0174533 - currentPosition.rotation_y) / stepSize,
+      rotation_z: (endPosition.rotation_z * 0.0174533 - currentPosition.rotation_z) / stepSize
+    }
+  }
 
   return (
     <>
@@ -143,21 +165,17 @@ function App() {
       <div className="fixed" style={{ zindex: 6, top: "0%", left: "0%", width: "85%", height: "70%" }}>
         <Canvas className="box" pixelRatio={[1, 2]} camera={{ position: [-10, 15, 15], fov: 50 }}>
           <ambientLight intensity={0.5} />
-          <Suspense fallback={null}>
+          <Suspense fallback={<Loader />}>
             <Camper />
           </Suspense>
-          {/* <Stats showPanel={0} /> */}
-          {/* <OrbitControls
-            enableZoom={false}
-            rotateSpeed={2}
-            // autoRotate={true}
-            autoRotateSpeed={5}>
-          </OrbitControls> */}
-          {/* <Dolly /> */}
+          <CameraAnimation />
+          <axesHelper scale={10} />
+          {/* <gridHelper args={[20, 40, "blue", "hotpink"]} /> */}
         </Canvas>
       </div>
-      <HUD className="overlay" mqttSub={mqttSub} mqttPublish={mqttPublish} mqttUnSub={mqttUnSub} mqttDisconnect={mqttDisconnect} payload={payload}></HUD>
-
+      <Button onClick={() => buttonClick()}>Testkonp</Button>
+      <Button onClick={() => buttonClick2()}>Testkonp</Button>
+      <HeadsUpDisplay className="overlay" connection={connection}></HeadsUpDisplay>
       {/* //     </FullScreen> */}
     </>
   );
