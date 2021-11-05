@@ -4,14 +4,14 @@ import GrayWater from './grayWater';
 import CleanWater from './cleanWater';
 import FloatingBox from '../FloatingBox';
 
-const WaterTankLevels = ({ mqttSub, payload }) => {
+const WaterTankLevels = (props) => {
 
     return (
         <>
-            <FloatingBox top="60%" left="35%" width="13%" height="30%" icon={<LocalDrink style={{ fill: "blue" }} className="full-screen" />}>
-                <CleanWater mqttSub={mqttSub} payload={payload}>
+            <FloatingBox {...props} icon={<LocalDrink style={{ fill: "blue" }} className="full-screen" />}>
+                <CleanWater {...props}>
                 </CleanWater>
-                <GrayWater mqttSub={mqttSub} payload={payload}>
+                <GrayWater {...props}>
                 </GrayWater>
             </FloatingBox>
         </>

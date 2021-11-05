@@ -1,46 +1,9 @@
 import React from 'react';
 import { Button, Card } from '@mui/material';
 
-const Connection = ({ connect, disconnect, connectBtn }) => {
+const Connection = (t) => {
 
-  const record = {
-    host: '192.168.68.53',
-    clientId: `dashboard_ + ${Math.random().toString(16).substr(2, 8)}`,
-    port: 9001,
-  };
-
-  const onFinish = (values) => {
-    const { host, clientId, port, username, password } = values;
-    const url = `ws://${host}:${port}`;
-    const options = {
-      keepalive: 30,
-      protocolId: 'MQTT',
-      protocolVersion: 4,
-      clean: true,
-      reconnectPeriod: 1000,
-      connectTimeout: 30 * 1000,
-      will: {
-        topic: 'WillMsg',
-        payload: 'Connection Closed abnormally..!',
-        qos: 0,
-        retain: false
-      },
-      rejectUnauthorized: false
-    };
-    options.clientId = clientId;
-    options.username = username;
-    options.password = password;
-
-    connect(url, options);
-  };
-
-  const handleConnect = () => {
-    // form.submit();
-  };
-
-  const handleDisconnect = () => {
-    disconnect();
-  };
+  console.log("Test2222: " + t)
 
   // const ConnectionForm = (
   //   <Form
@@ -95,16 +58,7 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
   //   </Form>
   // )
 
-  return (
-    <Card
-      title="Connection"
-      actions={[
-        <Button type="primary" onClick={handleConnect}>{connectBtn}</Button>,
-        <Button danger onClick={handleDisconnect}>Disconnect</Button>
-      ]}
-    >
-      {/* {ConnectionForm} */}
-    </Card>
+  return (<></>
   );
 }
 

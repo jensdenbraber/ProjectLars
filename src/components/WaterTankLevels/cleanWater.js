@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Slider } from '@mui/material';
 
-const CleanWater = ({ mqttSub, payload }) => {
+const CleanWater = (props) => {
 
     const record = {
         topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
         qos: 0
     };
 
+    const payload = props.connection.payload
+
     useEffect(() => {
-        mqttSub(record);
+        props.connection.subscribe(record);
     })
 
     const [messages, setMessages] = useState(null)

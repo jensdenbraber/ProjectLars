@@ -13,25 +13,25 @@ function showAlert(text) {
     alert(text)
 }
 
-const HeadsUpDisplay = ({ mqttSub, mqttPublish, unSub, showUnsub, payload }) => {
+const HeadsUpDisplay = (props) => {
 
     return (
         <>
             <FloatingBox top="60%" left="5%" width="13%" height="30%" icon={<Home className="full-screen" />} action={() => showAlert('Leetsource')}>
                 Home
             </FloatingBox>
-            <PowerLevels mqttSub={mqttSub} mqttPublish={mqttPublish} payload={payload}>
+            <PowerLevels top="60%" left="20%" width="13%" height="30%" {...props}>
             </PowerLevels>
-            <WaterTankLevels mqttSub={mqttSub} payload={payload}>
+            <WaterTankLevels top="60%" left="35%" width="13%" height="30%" {...props}>
             </WaterTankLevels>
-            <Gas mqttSub={mqttSub} payload={payload}>
+            <Gas top="60%" left="50%" width="13%" height="30%" {...props}>
             </Gas>
-            <Boiler mqttSub={mqttSub} mqttPublish={mqttPublish} payload={payload}>
+            <Boiler top="60%" left="65%" width="13%" height="30%" {...props}>
             </Boiler>
-            <FloatingBox top="60%" left="80%" width="13%" height="30%" icon={<PowerSettingsNew className="full-screen" />}>
+            <FloatingBox top="60%" left="80%" width="13%" height="30%" {...props} icon={<PowerSettingsNew className="full-screen" />}>
                 Power on/off
             </FloatingBox>
-            <Clock>
+            <Clock top="5%" left="80%" width="13%" height="15%">
             </Clock>
         </>
     );
