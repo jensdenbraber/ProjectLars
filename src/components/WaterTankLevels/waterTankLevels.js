@@ -6,9 +6,18 @@ import FloatingBox from '../FloatingBox';
 
 const WaterTankLevels = (props) => {
 
+    const cameraLocation = {
+        x: 10,
+        y: 10,
+        z: 10,
+        rotation_x: 0,
+        rotation_y: 0,
+        rotation_z: -20
+    }
+
     return (
         <>
-            <FloatingBox {...props} icon={<LocalDrink style={{ fill: "blue" }} className="full-screen" />}>
+            <FloatingBox {...props} action={() => props.startMovingCamera(cameraLocation)} icon={<LocalDrink style={{ fill: "blue" }} className="full-screen" />}>
                 <CleanWater {...props}>
                 </CleanWater>
                 <GrayWater {...props}>
