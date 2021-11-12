@@ -7,6 +7,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
 import Button from '@mui/material/Button';
 
+import Grid from "./components/Grid";
+
 import HeadsUpDisplay from './components/HeadsUpDisplay';
 
 function Loader() {
@@ -17,7 +19,7 @@ function Loader() {
 function App() {
 
   function Camper(props) {
-    const { scene } = useGLTF("./ProjectLars/Truck_test.glb");
+    const { scene } = useGLTF("./ProjectLars/Truck_y.glb");
     return <primitive object={scene} />;
   }
 
@@ -179,7 +181,8 @@ function App() {
             <Camper />
           </Suspense>
           <CameraAnimation />
-          <axesHelper scale={10} />
+          {/* <axesHelper scale={10} /> */}
+          {/* <Grid size={10} /> */}
           {/* <OrbitControls></OrbitControls> */}
           {/* <gridHelper args={[20, 40, "blue", "hotpink"]} /> */}
         </Canvas>
