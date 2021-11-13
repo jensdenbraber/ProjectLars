@@ -4,8 +4,10 @@ import React, { Suspense, useState, useEffect } from 'react';
 import mqtt from 'mqtt';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Html, useProgress } from "@react-three/drei";
+import { OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
 import Button from '@mui/material/Button';
+
+import Grid from "./components/Grid";
 
 import HeadsUpDisplay from './components/HeadsUpDisplay';
 
@@ -17,7 +19,7 @@ function Loader() {
 function App() {
 
   function Camper(props) {
-    const { scene } = useGLTF("./ProjectLars/Truck_test.glb");
+    const { scene } = useGLTF("./ProjectLars/Truck_y.glb");
     return <primitive object={scene} />;
   }
 
@@ -26,7 +28,17 @@ function App() {
   function CameraAnimation() {
     useFrame((state) => {
 
+      // console.log("state.camera.position.x: " + state.camera.position.x)
+      // console.log("state.camera.position.y: " + state.camera.position.y)
+      // console.log("state.camera.position.z: " + state.camera.position.z)
+
+      // console.log("state.camera.rotation.x: " + state.camera.rotation.x / 0.0174533)
+      // console.log("state.camera.rotation.y: " + state.camera.rotation.y / 0.0174533)
+      // console.log("state.camera.rotation.z: " + state.camera.rotation.z / 0.0174533)
+
+
       if (currentStep > 0) {
+
 
         state.camera.position.x = state.camera.position.x + tween.x
         state.camera.position.y = state.camera.position.y + tween.y
@@ -163,19 +175,21 @@ function App() {
     <>
       {/* //     <FullScreen> */}
       <div className="fixed" style={{ zindex: 6, top: "0%", left: "0%", width: "85%", height: "70%" }}>
-        <Canvas className="box" pixelRatio={[1, 2]} camera={{ position: [-10, 15, 15], fov: 50 }}>
+        <Canvas className="box" pixelRatio={[1, 2]} camera={{ position: [-10, 10, 10], fov: 50 }}>
           <ambientLight intensity={0.5} />
           <Suspense fallback={<Loader />}>
             <Camper />
           </Suspense>
           <CameraAnimation />
-          <axesHelper scale={10} />
+          {/* <axesHelper scale={10} /> */}
+          {/* <Grid size={10} /> */}
+          {/* <OrbitControls></OrbitControls> */}
           {/* <gridHelper args={[20, 40, "blue", "hotpink"]} /> */}
         </Canvas>
       </div>
       <Button onClick={() => buttonClick()}>Testkonp</Button>
       <Button onClick={() => buttonClick2()}>Testkonp</Button>
-      <HeadsUpDisplay className="overlay" connection={connection}></HeadsUpDisplay>
+      <HeadsUpDisplay className="overlay" connection={connection} startMovingCamera={startMovingCamera}></HeadsUpDisplay>
       {/* //     </FullScreen> */}
     </>
   );
