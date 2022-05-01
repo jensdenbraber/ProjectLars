@@ -12,7 +12,7 @@ const StartingBattery = (props) => {
 
     useEffect(() => {
         props.connection.subscribe(record);
-    })
+    }, [])
 
     const [messages, setMessages] = useState(null)
     const [batteryLevel, setBatteryLevel] = useState(100)
@@ -24,7 +24,7 @@ const StartingBattery = (props) => {
 
                 var JSONObject = JSON.parse(payload.message)
 
-                console.log('clean water level: ' + JSONObject['waterlevel'])
+                // console.log('clean water level: ' + JSONObject['waterlevel'])
 
                 setBatteryLevel(JSONObject['waterlevel'])
                 setMessages(payload)
@@ -32,9 +32,9 @@ const StartingBattery = (props) => {
         }
     }, [payload])
 
-    useEffect(() => {
-        console.log(messages)
-    }, [messages])
+    // useEffect(() => {
+    //     console.log(messages)
+    // }, [messages])
 
     const handleSliderChange = (event, batteryLevel) => {
 

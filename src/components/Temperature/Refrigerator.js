@@ -11,7 +11,7 @@ const Refrigerator = (props) => {
 
     useEffect(() => {
         props.connection.subscribe(record);
-    })
+    }, [])
 
     const [messages, setMessages] = useState(null)
     const [temperature, setWaterLevel] = useState(100)
@@ -23,7 +23,7 @@ const Refrigerator = (props) => {
 
                 var JSONObject = JSON.parse(payload.message)
 
-                console.log('clean water level: ' + JSONObject['waterlevel'])
+                // console.log('clean water level: ' + JSONObject['waterlevel'])
 
                 setWaterLevel(JSONObject['waterlevel'])
                 setMessages(payload)
@@ -31,9 +31,9 @@ const Refrigerator = (props) => {
         }
     }, [payload])
 
-    useEffect(() => {
-        console.log(messages)
-    }, [messages])
+    // useEffect(() => {
+    //     console.log(messages)
+    // }, [messages])
 
     return (
         <>

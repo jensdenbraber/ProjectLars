@@ -4,7 +4,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import mqtt from 'mqtt';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
+import { Sky, OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
 import Button from '@mui/material/Button';
 
 import Grid from "./components/Grid";
@@ -181,6 +181,8 @@ function App() {
             <Camper />
           </Suspense>
           <CameraAnimation />
+          {/* <Sky distance={45000} sunPosition={[0, 0.1, -0.9]} inclination={0} azimuth={0.25} /> */}
+
           {/* <axesHelper scale={10} /> */}
           {/* <Grid size={10} /> */}
           {/* <OrbitControls></OrbitControls> */}

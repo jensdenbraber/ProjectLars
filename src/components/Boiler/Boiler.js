@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { WbSunny } from '@mui/icons-material';
+import { Shower } from '@mui/icons-material';
 
 import FloatingBox from '../FloatingBox';
 
-function showAlert(text) {
-    alert(text)
-}
 
 
 const Boiler = (props) => {
-    const topicName = "camper/sensors/watertanklevels/48:3f:da:c:74:fe/"
+    const topicName = "camper/actuators/boiler/"
+
+    const record = {
+        topic: 'camper/actuators/boiler/',
+        qos: 0
+    };
+
     const payload = props.connection.payload
 
     const cameraLocation = {
@@ -22,8 +25,9 @@ const Boiler = (props) => {
     }
 
     useEffect(() => {
+        console.log("payload.topic: " + topicName)
         props.connection.subscribe({ topic: topicName + 'out', qos: 0 })
-    })
+    }, [])
 
     const [messages, setMessages] = useState(null)
 
@@ -32,12 +36,19 @@ const Boiler = (props) => {
     useEffect(() => {
 
         if (payload.topic) {
+            console.log("payload.topic: " + payload.topic.toString())
+
+            console.log("payload.message: " + payload.message)
+
             if (payload.message) {
 
-                var JSONObject = JSON.parse(payload.message)
+                console.log('Boiler received: ' + payload.message.toString())
 
-                console.log('Boiler status: ' + JSONObject['waterlevel'])
+                // var JSONObject = JSON.parse(payload.message)
 
+                // console.log('Boiler status: ' + JSONObject['waterlevel'])
+
+                // setBoilerState(payload)
                 setMessages(payload)
             }
         }
@@ -70,7 +81,7 @@ const Boiler = (props) => {
 
     return (
         <>
-            <FloatingBox {...props} action={updateBoilerState} icon={<WbSunny style={{ fill: "yellow" }} className="full-screen" />}>
+            <FloatingBox {...props} action={updateBoilerState} icon={<Shower style={{ fill: "yellow" }} className="full-screen" />}>
                 {boilerNames[boilerState]}
             </FloatingBox>
         </>

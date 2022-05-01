@@ -15,7 +15,7 @@ const GasLevels = (props) => {
 
     useEffect(() => {
         props.connection.subscribe(record);
-    })
+    }, [])
 
     const [messages, setMessages] = useState(null)
     const [gasLevel, setGasLevel] = useState(100)
@@ -27,7 +27,7 @@ const GasLevels = (props) => {
 
                 var JSONObject = JSON.parse(payload.message)
 
-                console.log('clean water level: ' + JSONObject['waterlevel'])
+                // console.log('clean water level: ' + JSONObject['waterlevel'])
 
                 setGasLevel(JSONObject['waterlevel'])
                 setMessages(payload)
@@ -35,9 +35,9 @@ const GasLevels = (props) => {
         }
     }, [payload])
 
-    useEffect(() => {
-        console.log(messages)
-    }, [messages])
+    // useEffect(() => {
+    //     console.log(messages)
+    // }, [messages])
 
     const handleSliderChange = (event, gasLevel) => {
 

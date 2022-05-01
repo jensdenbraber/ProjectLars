@@ -12,7 +12,7 @@ const GrayWater = (props) => {
 
     useEffect(() => {
         props.connection.subscribe(record);
-    })
+    }, [])
 
     const [messages, setMessages] = useState(null)
     const [waterLevel, setWaterLevel] = useState(100)
@@ -24,7 +24,7 @@ const GrayWater = (props) => {
 
                 var JSONObject = JSON.parse(payload.message)
 
-                console.log('Gray water level: ' + JSONObject['waterlevel'])
+                // console.log('Gray water level: ' + JSONObject['waterlevel'])
 
                 setWaterLevel(JSONObject['waterlevel'])
                 setMessages(payload)
@@ -32,9 +32,9 @@ const GrayWater = (props) => {
         }
     }, [payload])
 
-    useEffect(() => {
-        console.log(messages)
-    }, [messages])
+    // useEffect(() => {
+    //     console.log(messages)
+    // }, [messages])
 
     const handleSliderChange = (event, waterLevel) => {
 
