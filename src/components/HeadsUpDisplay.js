@@ -3,6 +3,7 @@ import { Home } from '@mui/icons-material';
 
 import WaterTankLevels from './WaterTankLevels/waterTankLevels';
 import PowerLevels from './Power/PowerLevels';
+import Temperatures from './Temperatures/Temperatures'
 import Boiler from './Boiler/Boiler'
 import Gas from './Gas/GasLevels'
 import Clock from './Clock'
@@ -24,6 +25,8 @@ const HeadsUpDisplay = (props) => {
             </WaterTankLevels>
             {/* <Gas top="60%" left="50%" width="13%" height="30%" {...props}>
             </Gas> */}
+            <Temperatures top="60%" left="50%" width="13%" height="30%" {...props}>
+            </Temperatures>
             <Boiler top="60%" left="65%" width="13%" height="30%" {...props}>
             </Boiler>
             <NighLight top="60%" left="80%" width="13%" height="30%" {...props}>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const Outdoor = (props) => {
+const Refrigerator = (props) => {
 
     const record = {
-        topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
+        // topic: 'camper/sensors/temperatures/48:3f:da:c:74:fe/out',
+        topic: 'zigbee2mqtt/Koelkast',
         qos: 0
     };
 
@@ -14,7 +15,7 @@ const Outdoor = (props) => {
     }, [])
 
     const [messages, setMessages] = useState(null)
-    const [temperature, setWaterLevel] = useState(100)
+    const [temperature, setTemperature] = useState(null)
 
     useEffect(() => {
 
@@ -24,8 +25,8 @@ const Outdoor = (props) => {
                 var JSONObject = JSON.parse(payload.message)
 
                 // console.log('clean water level: ' + JSONObject['waterlevel'])
-
-                setWaterLevel(JSONObject['waterlevel'])
+                console.log("refrigerator: " + JSONObject)
+                setTemperature(JSONObject['temperature'])
                 setMessages(payload)
             }
         }
@@ -37,9 +38,11 @@ const Outdoor = (props) => {
 
     return (
         <>
-            <span>Outdoor {temperature} C</span>
+            <div>{props.icon}
+                <span>Refrigerator {temperature} &deg;C</span>
+            </div>
         </>
     );
 }
 
-export default Outdoor;
+export default Refrigerator;

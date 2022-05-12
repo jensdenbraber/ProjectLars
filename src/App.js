@@ -73,7 +73,8 @@ function App() {
   const [cameraPosition, setCameraPosition] = React.useState({ x: -10, y: 15, z: 15 });
 
   useEffect(() => {
-    setClient(mqtt.connect("ws://192.168.68.53:9001"));
+    // setClient(mqtt.connect("ws://192.168.68.53:9001"));
+    setClient(mqtt.connect("ws://192.168.1.160:9001"));
   }, []);
 
   useEffect(() => {
@@ -189,8 +190,8 @@ function App() {
           {/* <gridHelper args={[20, 40, "blue", "hotpink"]} /> */}
         </Canvas>
       </div>
-      <Button onClick={() => buttonClick()}>Testkonp</Button>
-      <Button onClick={() => buttonClick2()}>Testkonp</Button>
+      {/* <Button onClick={() => buttonClick()}>Testkonp</Button> */}
+      {/* <Button onClick={() => buttonClick2()}>Testkonp</Button> */}
       <HeadsUpDisplay className="overlay" connection={connection} startMovingCamera={startMovingCamera}></HeadsUpDisplay>
       {/* //     </FullScreen> */}
     </>
