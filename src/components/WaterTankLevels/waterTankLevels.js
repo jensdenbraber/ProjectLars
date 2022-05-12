@@ -20,8 +20,8 @@ const WaterTankLevels = (props) => {
             <FloatingBox {...props} action={() => props.startMovingCamera(cameraLocation)} icon={<LocalDrink style={{ fill: "blue" }} className="full-screen" />}>
                 <CleanWater {...props}>
                 </CleanWater>
-                <GrayWater {...props}>
-                </GrayWater>
+                {/* <GrayWater {...props}>
+                </GrayWater> */}
             </FloatingBox>
         </>
     );
