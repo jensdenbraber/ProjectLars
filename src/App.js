@@ -1,76 +1,64 @@
 // import logo from './logo.svg';
 import './App.css';
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import mqtt from 'mqtt';
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Sky, OrbitControls, useGLTF, Html, useProgress } from "@react-three/drei";
-import Button from '@mui/material/Button';
+// import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-import Grid from "./components/Grid";
+import Camper from "./Camper";
 
-import HeadsUpDisplay from './components/HeadsUpDisplay';
+// import HeadsUpDisplay from './components/HeadsUpDisplay';
 
-function Loader() {
-  const { progress } = useProgress()
-  return <Html center>{progress} % loaded</Html>
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import { Home } from '@mui/icons-material';
+import WaterIcon from '@mui/icons-material/Water';
+// import BoltIcon from '@mui/icons-material/Bolt';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
+import CloudIcon from '@mui/icons-material/Cloud';
+// import PropaneIcon from '@mui/icons-material/Propane';
+import Paper from '@mui/material/Paper';
+import WaterTankLevels from './components/WaterTankLevels/waterTankLevels';
+import Boiler from './components/Boiler/Boiler';
+import NightLight from './components/NighLight';
+import PropaneTankIcon from '@mui/icons-material/PropaneTank';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import moment from 'moment'
+import { ReactComponent as Logo } from './polarbear.svg';
+import Typography from '@mui/material/Typography';
+
+import TabPanel from './TabPanel'
+
+
+
+const style = {
+  position: 'absolute',
+  top: '0%',
+  left: '0%',
+  width: '100%',
+  height: '100%',
+  bgcolor: '#000000',
+  color: '#A7A9AB',
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const styleSubBox = {
+  textAlign: "center",
 }
 
-function App() {
-
-  function Camper(props) {
-    const { scene } = useGLTF("./ProjectLars/Truck_y.glb");
-    return <primitive object={scene} />;
-  }
-
-  const [currentStep, setCurrentStep] = React.useState(0)
-
-  function CameraAnimation() {
-    useFrame((state) => {
-
-      // console.log("state.camera.position.x: " + state.camera.position.x)
-      // console.log("state.camera.position.y: " + state.camera.position.y)
-      // console.log("state.camera.position.z: " + state.camera.position.z)
-
-      // console.log("state.camera.rotation.x: " + state.camera.rotation.x / 0.0174533)
-      // console.log("state.camera.rotation.y: " + state.camera.rotation.y / 0.0174533)
-      // console.log("state.camera.rotation.z: " + state.camera.rotation.z / 0.0174533)
+const styleTypography = {
+  fontSize: "90px"
+}
 
 
-      if (currentStep > 0) {
-
-
-        state.camera.position.x = state.camera.position.x + tween.x
-        state.camera.position.y = state.camera.position.y + tween.y
-        state.camera.position.z = state.camera.position.z + tween.z
-
-        state.camera.rotation.x = state.camera.rotation.x + tween.rotation_x
-        state.camera.rotation.y = state.camera.rotation.y + tween.rotation_y
-        state.camera.rotation.z = state.camera.rotation.z + tween.rotation_z
-
-        setCurrentStep(currentStep - 1)
-      }
-
-      setCameraPosition({
-        x: state.camera.position.x, y: state.camera.position.y, z: state.camera.position.z,
-        rotation_x: state.camera.rotation.x,
-        rotation_y: state.camera.rotation.y,
-        rotation_z: state.camera.rotation.z
-      })
-
-      state.camera.updateProjectionMatrix()
-    })
-
-    return null
-  }
+export default function App() {
 
   const [connectStatus, setConnectStatus] = useState('Connect');
   const [payload, setPayload] = useState({});
 
   const [client, setClient] = useState(null)
-
-  const [tween, setTween] = React.useState(null);
-  const [cameraPosition, setCameraPosition] = React.useState({ x: -10, y: 15, z: 15 });
 
   useEffect(() => {
     setClient(mqtt.connect("ws://192.168.68.53:9001"));
@@ -150,51 +138,67 @@ function App() {
     payload: payload
   }
 
-  const buttonClick = () => startMovingCamera({ x: 0, y: 0, z: 20, rotation_x: 0, rotation_y: 0, rotation_z: 0 })
-  const buttonClick2 = () => startMovingCamera({ x: 0, y: 20, z: 0, rotation_x: -90, rotation_y: 0, rotation_z: 0 })
+  const [value, setValue] = React.useState(0);
 
-  const startMovingCamera = (endPosition) => {
-    const stepsize = 50
-    setCurrentStep(stepsize)
-    setTween(calculateTween(cameraPosition, endPosition, stepsize))
-  }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const calculateTween = (currentPosition, endPosition, stepSize) => {
-    return {
-      x: (endPosition.x - currentPosition.x) / stepSize,
-      y: (endPosition.y - currentPosition.y) / stepSize,
-      z: (endPosition.z - currentPosition.z) / stepSize,
+  const tabs = [
+    { 'label': 'dit is camper', 'component': <Camper connection={connection} /> },
+    { 'label': 'dit is water2', 'component': <WaterTankLevels connection={connection} /> },
+    { 'label': 'dit is water2', 'component': <Boiler connection={connection} /> },
+    // { 'label': 'dit is water2', 'component': <NightLight /> }
+  ]
 
-      rotation_x: (endPosition.rotation_x * 0.0174533 - currentPosition.rotation_x) / stepSize,
-      rotation_y: (endPosition.rotation_y * 0.0174533 - currentPosition.rotation_y) / stepSize,
-      rotation_z: (endPosition.rotation_z * 0.0174533 - currentPosition.rotation_z) / stepSize
-    }
-  }
 
   return (
     <>
-      {/* //     <FullScreen> */}
-      <div className="fixed" style={{ zindex: 6, top: "0%", left: "0%", width: "85%", height: "70%" }}>
-        <Canvas className="box" pixelRatio={[1, 2]} camera={{ position: [-10, 10, 10], fov: 50 }}>
-          <ambientLight intensity={0.5} />
-          <Suspense fallback={<Loader />}>
-            <Camper />
-          </Suspense>
-          <CameraAnimation />
-          {/* <Sky distance={45000} sunPosition={[0, 0.1, -0.9]} inclination={0} azimuth={0.25} /> */}
+      <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel>
+      <Modal
+        open={open}
+        onClick={handleClose}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Box sx={styleSubBox}>
+            <Typography id="modal-modal-description" sx={styleTypography}>
+              {moment(new Date()).format("dddd D MMMM HH:mm")}
+            </Typography>
+            <Logo fill="#A7A9AB" stroke="#A7A9AB" height={120} />
+          </Box>
+        </Box>
+      </Modal>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
 
-          {/* <axesHelper scale={10} /> */}
-          {/* <Grid size={10} /> */}
-          {/* <OrbitControls></OrbitControls> */}
-          {/* <gridHelper args={[20, 40, "blue", "hotpink"]} /> */}
-        </Canvas>
-      </div>
-      <Button onClick={() => buttonClick()}>Testkonp</Button>
-      <Button onClick={() => buttonClick2()}>Testkonp</Button>
-      <HeadsUpDisplay className="overlay" connection={connection} startMovingCamera={startMovingCamera}></HeadsUpDisplay>
-      {/* //     </FullScreen> */}
+            console.log("newValue: " + newValue)
+            console.log("tabs.length: " + tabs.length)
+
+            if (-1 < newValue && newValue < tabs.length) {
+              setValue(newValue);
+              console.log("newValue: " + newValue)
+            }
+
+            if (newValue == 3) {
+              handleOpen()
+              console.log("nightmode")
+            }
+          }}
+        >
+          <BottomNavigationAction label="" value="0" icon={<Home />} />
+          <BottomNavigationAction label="" value="1" icon={<WaterIcon />} />
+          <BottomNavigationAction label="" value="2" icon={<PropaneTankIcon />} />
+          {/* <BottomNavigationAction label="" value="3" icon={<CloudIcon />} /> */}
+          {/* <BottomNavigationAction label="" value="4" icon={<BoltIcon />} /> */}
+          <BottomNavigationAction label="" value="3" icon={<ModeNightIcon />} />
+        </BottomNavigation>
+      </Paper>
     </>
-  );
+  )
 }
-
-export default App;

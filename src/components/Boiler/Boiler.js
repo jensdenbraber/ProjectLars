@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Shower } from '@mui/icons-material';
+import Switch from '@mui/material/Switch';
+import Clock from '../Clock'
 
 import FloatingBox from '../FloatingBox';
 
@@ -27,7 +29,7 @@ const Boiler = (props) => {
     useEffect(() => {
         console.log("payload.topic: " + topicName)
         props.connection.subscribe({ topic: topicName + 'out', qos: 0 })
-    }, [])
+    }, [props.connection])
 
     const [messages, setMessages] = useState(null)
 
@@ -54,10 +56,10 @@ const Boiler = (props) => {
         }
     }, [payload])
 
-    const boilerNames = {
-        0: "uit",
-        1: "50 graden",
-        2: "70 graden"
+    const boilerStatus = {
+        0: "off",
+        1: "50 degrees",
+        2: "70 degrees"
     }
 
     useEffect(() => {
@@ -79,11 +81,56 @@ const Boiler = (props) => {
         props.startMovingCamera(cameraLocation)
     }
 
+
+    const [checked50, setChecked50] = React.useState(false);
+    const [checked70, setChecked70] = React.useState(false);
+
+    const handleChange50 = (event) => {
+
+        if (checked70) {
+            setChecked70(false);
+        }
+
+        setChecked50(event.target.checked);
+
+
+    };
+
+    const handleChange70 = (event) => {
+
+        if (checked50) {
+            setChecked50(false);
+        }
+
+        setChecked70(event.target.checked);
+    };
+
     return (
         <>
-            <FloatingBox {...props} action={updateBoilerState} icon={<Shower style={{ fill: "yellow" }} className="full-screen" />}>
+            {/* <FloatingBox {...props} action={updateBoilerState} icon={<Shower style={{ fill: "yellow" }} className="full-screen" />}>
                 {boilerNames[boilerState]}
-            </FloatingBox>
+            </FloatingBox> */}
+
+            <h2>
+                Boiler
+            </h2>
+            <div>
+                <span>50 graden</span>
+            </div>
+            <Switch
+                checked={checked50}
+                onChange={handleChange50}
+            />
+
+            <div>
+                <span>70 graden</span>
+            </div>
+            <Switch
+                checked={checked70}
+                onChange={handleChange70}
+            />
+
+
         </>
     );
 }

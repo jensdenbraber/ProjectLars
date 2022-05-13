@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Slider } from '@mui/material';
+import Switch from '@mui/material/Switch';
 
 const GrayWater = (props) => {
 
@@ -15,7 +15,7 @@ const GrayWater = (props) => {
     }, [])
 
     const [messages, setMessages] = useState(null)
-    const [waterLevel, setWaterLevel] = useState(100)
+    const [waterLevel, setWaterLevel] = useState(null)
 
     useEffect(() => {
 
@@ -32,27 +32,27 @@ const GrayWater = (props) => {
         }
     }, [payload])
 
-    // useEffect(() => {
-    //     console.log(messages)
-    // }, [messages])
+    const [checked, setChecked] = React.useState(false);
 
-    const handleSliderChange = (event, waterLevel) => {
-
-        console.log('handleSliderChange: ' + waterLevel)
-        setWaterLevel(waterLevel);
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
     };
 
     return (
         <>
-            <Slider style={{ minHeight: "100%" }}
-                onChange={handleSliderChange}
-                aria-label="Always visible"
-                defaultValue={waterLevel}
-                orientation="vertical"
-                step={1}
-                value={waterLevel}
+            <h2>
+                Vuil water tank
+            </h2>
+            <div>
+                <span>Gray {waterLevel} %</span>
+            </div>
+            <div>
+                <span>Verwarmingselement</span>
+            </div>
+            <Switch
+                checked={checked}
+                onChange={handleChange}
             />
-            <span>Gray {waterLevel} %</span>
         </>
     );
 }

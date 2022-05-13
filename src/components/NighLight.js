@@ -30,15 +30,15 @@ const styleTypography = {
 
 const NighLight = (props) => {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
         <>
-            <FloatingBox top="60%" left="80%" width="13%" height="30%" {...props} action={handleOpen} icon={<ModeNight className="full-screen" />}>
+            {/* <FloatingBox top="60%" left="80%" width="13%" height="30%" {...props} action={handleOpen} icon={<ModeNight className="full-screen" />}>
                 Power off
-            </FloatingBox>
+            </FloatingBox> */}
             <Modal
                 open={open}
                 onClick={handleClose}

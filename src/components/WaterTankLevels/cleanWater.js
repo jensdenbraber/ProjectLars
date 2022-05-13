@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Slider } from '@mui/material';
+import Switch from '@mui/material/Switch';
 
 const CleanWater = (props) => {
-
-    const record = {
-        topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
-        qos: 0
-    };
 
     const payload = props.connection.payload
 
     useEffect(() => {
-        props.connection.subscribe(record);
-    }, [])
+        const record = {
+            topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
+            qos: 0
+        };
 
-    const [messages, setMessages] = useState(null)
-    const [waterLevel, setWaterLevel] = useState(100)
+        props.connection.subscribe(record);
+    }, [props.connection])
+
+    const [waterLevel, setWaterLevel] = useState(null)
 
     useEffect(() => {
 
@@ -24,35 +23,32 @@ const CleanWater = (props) => {
 
                 var JSONObject = JSON.parse(payload.message)
 
-                // console.log('clean water level: ' + JSONObject['waterlevel'])
-
                 setWaterLevel(JSONObject['waterlevel'])
-                setMessages(payload)
             }
         }
     }, [payload])
 
-    // useEffect(() => {
-    //     console.log(messages)
-    // }, [messages])
+    const [checked, setChecked] = React.useState(true);
 
-    const handleSliderChange = (event, waterLevel) => {
-
-        console.log('handleSliderChange: ' + waterLevel)
-        setWaterLevel(waterLevel);
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
     };
 
     return (
         <>
-            <Slider style={{ minHeight: "100%" }}
-                onChange={handleSliderChange}
-                aria-label="Always visible"
-                defaultValue={waterLevel}
-                orientation="vertical"
-                step={1}
-                value={waterLevel}
+            <h2>
+                Schoon water tank
+            </h2>
+            <div>
+                <span>Clean {waterLevel} %</span>
+            </div>
+            <div>
+                <span>Waterpomp</span>
+            </div>
+            <Switch
+                checked={checked}
+                onChange={handleChange}
             />
-            <span>Clean {waterLevel} %</span>
         </>
     );
 }
