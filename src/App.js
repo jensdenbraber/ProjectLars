@@ -12,13 +12,13 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Home } from '@mui/icons-material';
 import WaterIcon from '@mui/icons-material/Water';
-// import BoltIcon from '@mui/icons-material/Bolt';
+import BoltIcon from '@mui/icons-material/Bolt';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import CloudIcon from '@mui/icons-material/Cloud';
 // import PropaneIcon from '@mui/icons-material/Propane';
 import Paper from '@mui/material/Paper';
 import WaterTankLevels from './components/WaterTankLevels/waterTankLevels';
-import Boiler from './components/Boiler/Boiler';
+import Lpg from './components/LPG/Lpg';
 import NightLight from './components/NighLight';
 import PropaneTankIcon from '@mui/icons-material/PropaneTank';
 import Modal from '@mui/material/Modal';
@@ -28,6 +28,8 @@ import { ReactComponent as Logo } from './polarbear.svg';
 import Typography from '@mui/material/Typography';
 
 import TabPanel from './TabPanel'
+import Temperatures from './components/Temperatures/Temperatures';
+import PowerLevels from './components/Power/PowerLevels';
 
 
 
@@ -145,12 +147,13 @@ export default function App() {
   const handleClose = () => setOpen(false);
 
   const tabs = [
-    { 'label': 'dit is camper', 'component': <Camper connection={connection} /> },
-    { 'label': 'dit is water2', 'component': <WaterTankLevels connection={connection} /> },
-    { 'label': 'dit is water2', 'component': <Boiler connection={connection} /> },
+    { 'label': 'Camper', 'component': <Camper connection={connection} /> },
+    { 'label': 'Water tank levels', 'component': <WaterTankLevels connection={connection} /> },
+    { 'label': 'LPG', 'component': <Lpg connection={connection} /> },
+    { 'label': 'Temperatures', 'component': <Temperatures connection={connection} /> },
+    { 'label': 'Power', 'component': <PowerLevels connection={connection} /> }
     // { 'label': 'dit is water2', 'component': <NightLight /> }
   ]
-
 
   return (
     <>
@@ -185,7 +188,7 @@ export default function App() {
               console.log("newValue: " + newValue)
             }
 
-            if (newValue == 3) {
+            if (newValue == tabs.length) {
               handleOpen()
               console.log("nightmode")
             }
@@ -194,9 +197,9 @@ export default function App() {
           <BottomNavigationAction label="" value="0" icon={<Home />} />
           <BottomNavigationAction label="" value="1" icon={<WaterIcon />} />
           <BottomNavigationAction label="" value="2" icon={<PropaneTankIcon />} />
-          {/* <BottomNavigationAction label="" value="3" icon={<CloudIcon />} /> */}
-          {/* <BottomNavigationAction label="" value="4" icon={<BoltIcon />} /> */}
-          <BottomNavigationAction label="" value="3" icon={<ModeNightIcon />} />
+          <BottomNavigationAction label="" value="3" icon={<CloudIcon />} />
+          <BottomNavigationAction label="" value="4" icon={<BoltIcon />} />
+          <BottomNavigationAction label="" value="5" icon={<ModeNightIcon />} />
         </BottomNavigation>
       </Paper>
     </>

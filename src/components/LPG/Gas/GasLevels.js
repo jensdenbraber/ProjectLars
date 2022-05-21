@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-const HouseHoldBattery = (props) => {
+const GasLevels = (props) => {
 
     const payload = props.connection.payload
 
     useEffect(() => {
         const record = {
-            topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
+            topic: 'camper/sensors/gaslevels/48:3f:da:c:74:fe/out',
             qos: 0
         };
 
         props.connection.subscribe(record);
     }, [props.connection])
 
-    const [batteryLevel, setBatteryLevel] = useState(null)
+    const [gasLevel, setGasLevel] = useState(null)
 
     useEffect(() => {
 
@@ -22,7 +22,7 @@ const HouseHoldBattery = (props) => {
 
                 var jsonObject = JSON.parse(payload.message)
 
-                setBatteryLevel(jsonObject['batterylevel'])
+                setGasLevel(jsonObject['gaslevel'])
             }
         }
     }, [payload])
@@ -30,12 +30,11 @@ const HouseHoldBattery = (props) => {
     return (
         <>
             <h2>
-                Huishoud accu
+                Gas
             </h2>
-
-            <span>Huishoud accu {batteryLevel} %</span>
+            <span>Gas {gasLevel} %</span>
         </>
     );
 }
 
-export default HouseHoldBattery;
+export default GasLevels;

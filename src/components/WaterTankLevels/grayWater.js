@@ -3,18 +3,17 @@ import Switch from '@mui/material/Switch';
 
 const GrayWater = (props) => {
 
-    const record = {
-        topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
-        qos: 0
-    };
-
     const payload = props.connection.payload
 
     useEffect(() => {
-        props.connection.subscribe(record);
-    }, [])
+        const record = {
+            topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
+            qos: 0
+        };
 
-    const [messages, setMessages] = useState(null)
+        props.connection.subscribe(record);
+    }, [props.connection])
+
     const [waterLevel, setWaterLevel] = useState(null)
 
     useEffect(() => {
@@ -27,7 +26,6 @@ const GrayWater = (props) => {
                 // console.log('Gray water level: ' + JSONObject['waterlevel'])
 
                 setWaterLevel(JSONObject['waterlevel'])
-                setMessages(payload)
             }
         }
     }, [payload])
@@ -56,4 +54,5 @@ const GrayWater = (props) => {
         </>
     );
 }
+
 export default GrayWater;

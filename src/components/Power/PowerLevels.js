@@ -8,12 +8,10 @@ const PowerLevels = (props) => {
 
     return (
         <>
-            <FloatingBox {...props} icon={<FlashOn style={{ fill: "purple" }} className="full-screen" />}>
-                <StartingBattery {...props}>
-                </StartingBattery>
-                <HouseHoldBattery {...props}>
-                </HouseHoldBattery>
-            </FloatingBox>
+            {/* <FloatingBox {...props} icon={<FlashOn style={{ fill: "purple" }} className="full-screen" />}> */}
+            <StartingBattery {...props} />
+            <HouseHoldBattery {...props} />
+            {/* </FloatingBox> */}
         </>
     );
 }
