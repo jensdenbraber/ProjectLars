@@ -1,5 +1,5 @@
 // import GrayWater from './grayWater';
-import CleanWater from './cleanWater';
+import CleanWater from './CleanWater';
 import Box from '@mui/material/Box';
 
 const WaterTankLevels = (props) => {

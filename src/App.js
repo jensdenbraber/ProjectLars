@@ -17,7 +17,7 @@ import ModeNightIcon from '@mui/icons-material/ModeNight';
 import CloudIcon from '@mui/icons-material/Cloud';
 // import PropaneIcon from '@mui/icons-material/Propane';
 import Paper from '@mui/material/Paper';
-import WaterTankLevels from './components/WaterTankLevels/waterTankLevels';
+import WaterTankLevels from './components/Water/WaterTankLevels/WaterTankLevels';
 import Lpg from './components/LPG/Lpg';
 import NightLight from './components/NighLight';
 import PropaneTankIcon from '@mui/icons-material/PropaneTank';
@@ -152,7 +152,6 @@ export default function App() {
     { 'label': 'LPG', 'component': <Lpg connection={connection} /> },
     { 'label': 'Temperatures', 'component': <Temperatures connection={connection} /> },
     { 'label': 'Power', 'component': <PowerLevels connection={connection} /> }
-    // { 'label': 'dit is water2', 'component': <NightLight /> }
   ]
 
   return (
@@ -194,12 +193,12 @@ export default function App() {
             }
           }}
         >
-          <BottomNavigationAction label="" value="0" icon={<Home />} />
-          <BottomNavigationAction label="" value="1" icon={<WaterIcon />} />
-          <BottomNavigationAction label="" value="2" icon={<PropaneTankIcon />} />
-          <BottomNavigationAction label="" value="3" icon={<CloudIcon />} />
-          <BottomNavigationAction label="" value="4" icon={<BoltIcon />} />
-          <BottomNavigationAction label="" value="5" icon={<ModeNightIcon />} />
+          <BottomNavigationAction label="Camper" value="0" icon={<Home />} />
+          <BottomNavigationAction label="Water tank levels" value="1" icon={<WaterIcon />} />
+          <BottomNavigationAction label="LPG" value="2" icon={<PropaneTankIcon />} />
+          <BottomNavigationAction label="Temperatures" value="3" icon={<CloudIcon />} />
+          <BottomNavigationAction label="Power" value="4" icon={<BoltIcon />} />
+          <BottomNavigationAction label="NightMode" value="5" icon={<ModeNightIcon />} />
         </BottomNavigation>
       </Paper>
     </>

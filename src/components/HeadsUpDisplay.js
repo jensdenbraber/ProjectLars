@@ -1,10 +1,10 @@
 import React from 'react';
 import { Home } from '@mui/icons-material';
 
-import WaterTankLevels from './WaterTankLevels/waterTankLevels';
+import WaterTankLevels from './Water/WaterTankLevels';
+import Boiler from './Water/Boiler/Boiler'
 import PowerLevels from './Power/PowerLevels';
 import Temperatures from './Temperatures/Temperatures'
-import Boiler from './LPG/Boiler/Boiler'
 import Gas from './LPG/Gas/GasLevels'
 import Clock from './Clock'
 import NighLight from './NighLight'
