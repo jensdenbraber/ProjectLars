@@ -1,7 +1,11 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import mqtt from 'mqtt';
+// import mqtt from 'mqtt';
+
+import { Connector, useSubscription, useMqttState } from 'mqtt-react-hooks';
+import Status from './Status';
+
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 import Camper from "./Camper";
@@ -56,89 +60,89 @@ const styleTypography = {
 
 
 export default function App() {
+  // const { client } = useMqttState();
+  // const [connectStatus, setConnectStatus] = useState('Connect');
+  // const [payload, setPayload] = useState({});
 
-  const [connectStatus, setConnectStatus] = useState('Connect');
-  const [payload, setPayload] = useState({});
+  // const [client, setClient] = useState(null)
 
-  const [client, setClient] = useState(null)
+  // // useEffect(() => {
+  // //   setClient(mqtt.connect("ws://192.168.68.53:9001"));
+  // // }, []);
 
-  useEffect(() => {
-    setClient(mqtt.connect("ws://192.168.68.53:9001"));
-  }, []);
+  // useEffect(() => {
+  //   if (client) {
+  //     client.on('connect', () => {
+  //       setConnectStatus('Connected');
+  //     });
+  //     client.on('error', (err) => {
+  //       console.error('Connection error: ', err);
+  //       client.end();
+  //     });
+  //     client.on('reconnect', () => {
+  //       setConnectStatus('Reconnecting');
+  //     });
+  //     client.on('message', (topic, message) => {
+  //       const payload = { topic, message: message.toString() };
+  //       setPayload(payload);
+  //     });
+  //   }
+  // }, [client]);
 
-  useEffect(() => {
-    if (client) {
-      client.on('connect', () => {
-        setConnectStatus('Connected');
-      });
-      client.on('error', (err) => {
-        console.error('Connection error: ', err);
-        client.end();
-      });
-      client.on('reconnect', () => {
-        setConnectStatus('Reconnecting');
-      });
-      client.on('message', (topic, message) => {
-        const payload = { topic, message: message.toString() };
-        setPayload(payload);
-      });
-    }
-  }, [client]);
+  // useEffect(() => {
+  //   console.log("connectionStatus: " + connectStatus)
+  // }, [connectStatus])
 
-  useEffect(() => {
-    console.log("connectionStatus: " + connectStatus)
-  }, [connectStatus])
+  // const mqttDisconnect = () => {
+  //   if (client) {
+  //     client.end(() => {
+  //       setConnectStatus('Connect');
+  //     });
+  //   }
+  // }
 
-  const mqttDisconnect = () => {
-    if (client) {
-      client.end(() => {
-        setConnectStatus('Connect');
-      });
-    }
-  }
+  // const mqttPublish = (context) => {
+  //   if (client) {
+  //     const { topic, qos, payload } = context;
+  //     client.publish(topic, payload, { qos }, error => {
+  //       if (error) {
+  //         console.log('Publish error: ', error);
+  //       }
+  //     });
+  //   }
+  // }
 
-  const mqttPublish = (context) => {
-    if (client) {
-      const { topic, qos, payload } = context;
-      client.publish(topic, payload, { qos }, error => {
-        if (error) {
-          console.log('Publish error: ', error);
-        }
-      });
-    }
-  }
+  // const mqttSub = (subscription) => {
+  //   if (client) {
+  //     const { topic, qos } = subscription;
+  //     client.subscribe(topic, { qos }, (error) => {
+  //       if (error) {
+  //         console.log('Subscribe to topics error', error)
+  //         return
+  //       }
+  //     });
+  //   }
+  // };
 
-  const mqttSub = (subscription) => {
-    if (client) {
-      const { topic, qos } = subscription;
-      client.subscribe(topic, { qos }, (error) => {
-        if (error) {
-          console.log('Subscribe to topics error', error)
-          return
-        }
-      });
-    }
-  };
+  // const mqttUnSub = (subscription) => {
+  //   if (client) {
+  //     const { topic } = subscription;
+  //     client.unsubscribe(topic, error => {
+  //       if (error) {
+  //         console.log('Unsubscribe error', error)
+  //         return
+  //       }
+  //     });
+  //   }
+  // };
 
-  const mqttUnSub = (subscription) => {
-    if (client) {
-      const { topic } = subscription;
-      client.unsubscribe(topic, error => {
-        if (error) {
-          console.log('Unsubscribe error', error)
-          return
-        }
-      });
-    }
-  };
-
-  const connection = {
-    subscribe: mqttSub,
-    unsubscibe: mqttUnSub,
-    publish: mqttPublish,
-    disconnect: mqttDisconnect,
-    payload: payload
-  }
+  // const connection = {
+  //   subscribe: mqttSub,
+  //   unsubscibe: mqttUnSub,
+  //   publish: mqttPublish,
+  //   disconnect: mqttDisconnect,
+  //   payload: payload
+  // }
 
   const [value, setValue] = React.useState(0);
 
@@ -147,16 +151,23 @@ export default function App() {
   const handleClose = () => setOpen(false);
 
   const tabs = [
-    { 'label': 'Camper', 'component': <Camper connection={connection} /> },
-    { 'label': 'Water tank levels', 'component': <WaterTankLevels connection={connection} /> },
-    { 'label': 'LPG', 'component': <Lpg connection={connection} /> },
-    { 'label': 'Temperatures', 'component': <Temperatures connection={connection} /> },
-    { 'label': 'Power', 'component': <PowerLevels connection={connection} /> }
+    { 'label': 'Camper', 'component': <Camper /> },
+    { 'label': 'Water tank levels', 'component': <WaterTankLevels /> },
+    { 'label': 'LPG', 'component': <Lpg /> },
+    { 'label': 'Temperatures', 'component': <Temperatures /> },
+    { 'label': 'Power', 'component': <PowerLevels /> }
   ]
 
+
+
   return (
-    <>
-      <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel>
+
+    <Connector brokerUrl="ws://192.168.68.53:9001" options={{ keepalive: 0 }}>
+
+
+      <Status />
+      {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
+
       <Modal
         open={open}
         onClick={handleClose}
@@ -178,15 +189,12 @@ export default function App() {
           showLabels
           value={value}
           onChange={(event, newValue) => {
-
             console.log("newValue: " + newValue)
             console.log("tabs.length: " + tabs.length)
-
             if (-1 < newValue && newValue < tabs.length) {
               setValue(newValue);
               console.log("newValue: " + newValue)
             }
-
             if (newValue == tabs.length) {
               handleOpen()
               console.log("nightmode")
@@ -201,6 +209,6 @@ export default function App() {
           <BottomNavigationAction label="NightMode" value="5" icon={<ModeNightIcon />} />
         </BottomNavigation>
       </Paper>
-    </>
+    </Connector>
   )
 }

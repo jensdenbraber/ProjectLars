@@ -3,6 +3,8 @@ import Switch from '@mui/material/Switch';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
+import { useSubscription, useMqttState } from 'mqtt-react-hooks';
+
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -18,22 +20,25 @@ const WaterPumpContent = (props) => {
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
     const topicName = "camper/actuators/waterpump/"
 
-    const payload = props.connection.payload
+    const { payload } = useSubscription(topicName + 'out');
+    const { client } = useMqttState();
 
-    useEffect(() => {
-        props.connection.subscribe({ topic: topicName + 'out', qos: 0 })
-    }, [props.connection])
+    // const payload = props.connection.payload
+
+    // useEffect(() => {
+    //     props.connection.subscribe({ topic: topicName + 'out', qos: 0 })
+    // }, [props.connection])
 
     useEffect(() => {
 
         // console.log("WaterPumpContent payload topic: " + payload.topic)
 
-        if (payload.topic?.includes(topicName)) {
-            if (payload.message) {
+        if (payload?.topic?.includes(topicName)) {
+            if (payload?.message) {
 
                 // console.log("waterpump out payload.message: " + payload.message)
 
-                var jsonObject = JSON.parse(payload.message)
+                var jsonObject = JSON.parse(payload?.message)
 
                 console.log("waterpump state: " + jsonObject['state'])
 
@@ -42,18 +47,18 @@ const WaterPumpContent = (props) => {
         }
     }, [payload])
 
-    useEffect(() => {
-        // console.log("waterPumpState updated to: " + waterPumpState)
-        console.log("waterPumpState: " + waterPumpState)
-        // console.log("Number(waterPumpState): " + Number(waterPumpState))
-        // console.log("waterPumpStates[Number(waterPumpState)]: " + waterPumpStates[Number(waterPumpState)])
+    // useEffect(() => {
+    //     // console.log("waterPumpState updated to: " + waterPumpState)
+    //     console.log("waterPumpState: " + waterPumpState)
+    //     // console.log("Number(waterPumpState): " + Number(waterPumpState))
+    //     // console.log("waterPumpStates[Number(waterPumpState)]: " + waterPumpStates[Number(waterPumpState)])
 
-        props.connection.publish({
-            topic: topicName + 'in',
-            qos: 0,
-            payload: "{ \"state\": \"" + waterPumpState + "\" }"
-        })
-    }, [waterPumpState, props.connection, waterPumpStates])
+    //     props.connection.publish({
+    //         topic: topicName + 'in',
+    //         qos: 0,
+    //         payload: "{ \"state\": \"" + waterPumpState + "\" }"
+    //     })
+    // }, [waterPumpState, props.connection, waterPumpStates])
 
     useEffect(() => {
 
@@ -70,17 +75,22 @@ const WaterPumpContent = (props) => {
 
         setWaterPumpSwitchState(event.target.checked);
 
-        // console.log("waterPumpState: " + waterPumpState)
+        console.log("event.target.checked: " + event.target.checked);
+
+        console.log("waterPumpState: " + waterPumpState)
+        console.log("topicName: " + topicName)
+
+        client.publish('camper/actuators/waterpump/in', "{ \"state\": \"" + waterPumpState + "\" }");
+
         // console.log("[Number(waterPumpState)]: " + [Number(waterPumpState)])
         // console.log("waterPumpStates: " + waterPumpStates[Number(waterPumpState)])
     };
 
-
     const [open, setOpen] = React.useState(false);
 
-    const handleClick = () => {
-        setOpen(true);
-    };
+    // const handleClick = () => {
+    //     setOpen(true);
+    // };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -90,9 +100,18 @@ const WaterPumpContent = (props) => {
         setOpen(false);
     };
 
+    function handleClick(message) {
+        console.log("button message: " + message)
+        client.publish('esp32/led', "askhjdaskjudhgkjh");
+    }
+
     return (
         <>
-            <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
+            <button type="button" onClick={() => handleClick('false')}>
+                Disable led
+            </button>
+
+            {/* <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     Water pump status: {waterPumpState}
                 </Alert>
@@ -101,7 +120,7 @@ const WaterPumpContent = (props) => {
             <Switch
                 checked={waterPumpSwitchState}
                 onChange={handleChange}
-            />
+            /> */}
         </>
     )
 }

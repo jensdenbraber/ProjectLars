@@ -7,7 +7,7 @@ const Lpg = (props) => {
 
     return (
         <Box>
-            <Boiler {...props} />
+            {/* <Boiler {...props} /> */}
             {/* <GasLevels {...props} /> */}
         </Box>
     );
