@@ -72,7 +72,7 @@ const WaterPumpContent = (props) => {
         if (!waterPumpSwitchState) {
             setWaterPumpState(waterPumpStates[0]);
         }
-    }, [waterPumpSwitchState, props.connection, waterPumpStates])
+    }, [waterPumpSwitchState, waterPumpStates])
 
     const handleChange = (event) => {
 
