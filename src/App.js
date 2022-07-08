@@ -35,6 +35,9 @@ import TabPanel from './TabPanel'
 import Temperatures from './components/Temperatures/Temperatures';
 import PowerLevels from './components/Power/PowerLevels';
 
+import Boiler from './components/LPG/Boiler';
+import WaterPumpContent from './components/Water/WaterPump/WaterPumpContent';
+
 
 
 const style = {
@@ -57,7 +60,6 @@ const styleSubBox = {
 const styleTypography = {
   fontSize: "90px"
 }
-
 
 export default function App() {
   // const { client } = useMqttState();
@@ -158,14 +160,53 @@ export default function App() {
     { 'label': 'Power', 'component': <PowerLevels /> }
   ]
 
+  const waterPumpStates = {
+    0: "off",
+    1: "on"
+  }
+
+  const topicName = "camper/actuators/waterpump"
+
+  // const { payload } = useSubscription(topicName + '/out');
+  const { client } = useMqttState();
+
+  const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
+  const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
+
+  const handleChange = (event) => {
+
+    setWaterPumpSwitchState(event.target.checked);
+
+    console.log("event.target.checked: " + event.target.checked);
+
+    console.log("waterPumpState: " + waterPumpState)
+    console.log("topicName: " + topicName + '/in')
+    console.log("client: " + client)
+    console.log("published...")
+
+    client?.publish(topicName + '/in', "{ \"state\": \"" + waterPumpState + "\" }");
+
+    console.log("published... done")
+
+    // console.log("[Number(waterPumpState)]: " + [Number(waterPumpState)])
+    // console.log("waterPumpStates: " + waterPumpStates[Number(waterPumpState)])
+  };
+
+
 
 
   return (
 
     <Connector brokerUrl="ws://192.168.68.53:9001" options={{ keepalive: 0 }}>
+      {/* <Connector brokerUrl="ws://192.168.68.69:9001" options={{ keepalive: 0 }}> */}
 
-
+      {/* <Switch
+        checked={waterPumpSwitchState}
+        onChange={handleChange}
+      /> */}
       <Status />
+      <WaterPumpContent />
+      {/* <Boiler /> */}
       {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
 
       <Modal

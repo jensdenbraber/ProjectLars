@@ -16,12 +16,15 @@ const WaterPumpContent = (props) => {
         1: "on"
     }
 
+    const topicName = "camper/actuators/waterpump"
+
+    const { payload } = useSubscription(topicName + '/out');
+    const { client } = useMqttState();
+
+    // console.log("JSON.parse(payload?.message)['state']: " + JSON.parse(payload?.message)['state'])
+
     const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
-    const topicName = "camper/actuators/waterpump/"
-
-    const { payload } = useSubscription(topicName + 'out');
-    const { client } = useMqttState();
 
     // const payload = props.connection.payload
 
@@ -78,9 +81,12 @@ const WaterPumpContent = (props) => {
         console.log("event.target.checked: " + event.target.checked);
 
         console.log("waterPumpState: " + waterPumpState)
-        console.log("topicName: " + topicName)
+        console.log("topicName: " + topicName + '/in')
+        console.log("published...")
 
-        client.publish('camper/actuators/waterpump/in', "{ \"state\": \"" + waterPumpState + "\" }");
+        client.publish(topicName + '/in', "{ \"state\": \"" + waterPumpState + "\" }");
+
+        console.log("published... done")
 
         // console.log("[Number(waterPumpState)]: " + [Number(waterPumpState)])
         // console.log("waterPumpStates: " + waterPumpStates[Number(waterPumpState)])
@@ -107,11 +113,11 @@ const WaterPumpContent = (props) => {
 
     return (
         <>
-            <button type="button" onClick={() => handleClick('false')}>
+            {/* <button type="button" onClick={() => handleClick('false')}>
                 Disable led
-            </button>
+            </button> */}
 
-            {/* <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
+            <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     Water pump status: {waterPumpState}
                 </Alert>
@@ -120,7 +126,7 @@ const WaterPumpContent = (props) => {
             <Switch
                 checked={waterPumpSwitchState}
                 onChange={handleChange}
-            /> */}
+            />
         </>
     )
 }
