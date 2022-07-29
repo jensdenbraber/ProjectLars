@@ -5,6 +5,17 @@ import MuiAlert from '@mui/material/Alert';
 
 import { useSubscription, useMqttState } from 'mqtt-react-hooks';
 
+// const gpio = require('rpi-gpio')
+// const gpiop = gpio.promise;
+
+// gpiop.setup(4, gpio.DIR_OUT);
+
+// const Gpio = require('onoff').Gpio;
+// const Gpiop = Gpio.promise;
+
+// const LED = new Gpio(4, 'out'); // gpio 4 as out
+
+
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -16,110 +27,103 @@ const WaterPumpContent = (props) => {
         1: "on"
     }
 
+
+
+
+    // current LED state
+    let isWaterpumpOn = false;
+
     const topicName = "camper/actuators/waterpump"
 
-    const { payload } = useSubscription(topicName + '/out');
+    const { payload } = useSubscription(topicName + '/out', 2);
     const { client } = useMqttState();
-
-    // console.log("JSON.parse(payload?.message)['state']: " + JSON.parse(payload?.message)['state'])
 
     const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
 
-    // const payload = props.connection.payload
-
-    // useEffect(() => {
-    //     props.connection.subscribe({ topic: topicName + 'out', qos: 0 })
-    // }, [props.connection])
+    const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
 
-        // console.log("WaterPumpContent payload topic: " + payload.topic)
+        console.log("payload?.message: " + payload?.message)
 
-        if (payload?.topic?.includes(topicName)) {
-            if (payload?.message) {
+        // if (payload?.topic?.includes(topicName)) {
+        if (payload?.message) {
 
-                // console.log("waterpump out payload.message: " + payload.message)
+            var jsonObject = JSON.parse(payload?.message)
 
-                var jsonObject = JSON.parse(payload?.message)
+            console.log("waterpump state: " + jsonObject['state'])
 
-                console.log("waterpump state: " + jsonObject['state'])
-
-                setOpen(true)
-            }
+            setOpen(true)
         }
-    }, [payload])
-
-    // useEffect(() => {
-    //     // console.log("waterPumpState updated to: " + waterPumpState)
-    //     console.log("waterPumpState: " + waterPumpState)
-    //     // console.log("Number(waterPumpState): " + Number(waterPumpState))
-    //     // console.log("waterPumpStates[Number(waterPumpState)]: " + waterPumpStates[Number(waterPumpState)])
-
-    //     props.connection.publish({
-    //         topic: topicName + 'in',
-    //         qos: 0,
-    //         payload: "{ \"state\": \"" + waterPumpState + "\" }"
-    //     })
-    // }, [waterPumpState, props.connection, waterPumpStates])
+        // }
+    }, [payload?.message])
 
     useEffect(() => {
 
         if (waterPumpSwitchState) {
-            setWaterPumpState(waterPumpStates[1]);
+            // console.log("waterPumpStates[1] : " + waterPumpStates[1])
+
+            setWaterPumpState(waterPumpStates[1])
         }
 
         if (!waterPumpSwitchState) {
-            setWaterPumpState(waterPumpStates[0]);
+            // console.log("waterPumpStates[0] : " + waterPumpStates[0])
+
+            setWaterPumpState(waterPumpStates[0])
         }
+
+        // client?.publish(topicName + '/in', "{ \"state\": \"" + waterPumpState + "\" }", 2);
+
     }, [waterPumpSwitchState, waterPumpStates])
 
     const handleChange = (event) => {
 
-        setWaterPumpSwitchState(event.target.checked);
+        setWaterPumpSwitchState(event.target.checked)
 
-        console.log("event.target.checked: " + event.target.checked);
+        // console.log("event.target.checked: " + event.target.checked)
+        // console.log("waterPumpState: " + waterPumpState)
 
-        console.log("waterPumpState: " + waterPumpState)
-        console.log("topicName: " + topicName + '/in')
-        console.log("published...")
+        client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
 
-        client.publish(topicName + '/in', "{ \"state\": \"" + waterPumpState + "\" }");
+        // waterpumpOut.writeSync(waterPumpState); // provide 1 or 0 
 
-        console.log("published... done")
+        if (waterPumpState == "on") {
 
-        // console.log("[Number(waterPumpState)]: " + [Number(waterPumpState)])
-        // console.log("waterPumpStates: " + waterPumpStates[Number(waterPumpState)])
+            console.log("waterPumpState == on")
+
+
+            // GPIO.output(led, GPIO.HIGH)
+            // LED.writeSync(1); // make it 1 (on)
+            // gpio.write(4, true);
+            // gpio.setup(4, gpio.DIR_OUT, writeOn);
+        }
+
+        if (waterPumpState == "off") {
+            console.log("waterPumpState == off")
+
+
+            // LED.writeSync(0); // make it 0 (off)
+            // GPIO.output(led, GPIO.LOW)
+            // gpio.write(4, false);
+            // gpio.setup(4, gpio.DIR_OUT, writeOff);
+        }
+
     };
-
-    const [open, setOpen] = React.useState(false);
-
-    // const handleClick = () => {
-    //     setOpen(true);
-    // };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
 
-        setOpen(false);
+        setOpen(false)
     };
-
-    function handleClick(message) {
-        console.log("button message: " + message)
-        client.publish('esp32/led', "askhjdaskjudhgkjh");
-    }
 
     return (
         <>
-            {/* <button type="button" onClick={() => handleClick('false')}>
-                Disable led
-            </button> */}
-
             <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Water pump status: {waterPumpState}
+                    Water pump status: {payload?.message}
                 </Alert>
             </Snackbar>
 

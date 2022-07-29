@@ -38,7 +38,11 @@ import PowerLevels from './components/Power/PowerLevels';
 import Boiler from './components/LPG/Boiler';
 import WaterPumpContent from './components/Water/WaterPump/WaterPumpContent';
 
+// const { gpiop } = require('rpi-gpio')
 
+// const { Gpio } = require('onoff');
+
+// const waterpumpOut = new Gpio('4', 'out');
 
 const style = {
   position: 'absolute',

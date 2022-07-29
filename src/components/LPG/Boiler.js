@@ -14,7 +14,7 @@ const Boiler = (props) => {
 
     const topicName = "camper/actuators/boiler/"
 
-    const { payload } = useSubscription(topicName + '/out');
+    const { payload } = useSubscription(topicName + '/out', 2);
     const { client, connectionStatus } = useMqttState();
 
     const boilerStates = {
@@ -56,16 +56,10 @@ const Boiler = (props) => {
 
     useEffect(() => {
 
-        // props.connection.publish({
-        //     topic: topicName + 'in',
-        //     qos: 0,
-        //     payload: "{ \"state\": \"" + boilerState + "\" }"
-        // })
-
         console.log("boilerState: " + boilerState)
         console.log("published...")
 
-        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }");
+        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
 
 
     }, [boilerState, boilerStates, client])
@@ -82,7 +76,7 @@ const Boiler = (props) => {
         if (!checked50 && !checked70) {
             setBoilerState(boilerStates[0])
         }
-    }, [boilerState, boilerStates, checked50, checked70, props.connection])
+    }, [boilerState, boilerStates, checked50, checked70])
 
     const handleChange50 = (event) => {
 
@@ -142,8 +136,6 @@ const Boiler = (props) => {
                 checked={checked70}
                 onChange={handleChange70}
             />
-
-
         </>
     );
 }
