@@ -1,8 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-// import mqtt from 'mqtt';
-
 import { Connector, useSubscription, useMqttState } from 'mqtt-react-hooks';
 import Status from './Status';
 
@@ -35,14 +33,8 @@ import TabPanel from './TabPanel'
 import Temperatures from './components/Temperatures/Temperatures';
 import PowerLevels from './components/Power/PowerLevels';
 
-import Boiler from './components/LPG/Boiler';
+import Boiler from './components/LPG/Boiler'
 import WaterPumpContent from './components/Water/WaterPump/WaterPumpContent';
-
-// const { gpiop } = require('rpi-gpio')
-
-// const { Gpio } = require('onoff');
-
-// const waterpumpOut = new Gpio('4', 'out');
 
 const style = {
   position: 'absolute',
@@ -66,89 +58,6 @@ const styleTypography = {
 }
 
 export default function App() {
-  // const { client } = useMqttState();
-  // const [connectStatus, setConnectStatus] = useState('Connect');
-  // const [payload, setPayload] = useState({});
-
-  // const [client, setClient] = useState(null)
-
-  // // useEffect(() => {
-  // //   setClient(mqtt.connect("ws://192.168.68.53:9001"));
-  // // }, []);
-
-  // useEffect(() => {
-  //   if (client) {
-  //     client.on('connect', () => {
-  //       setConnectStatus('Connected');
-  //     });
-  //     client.on('error', (err) => {
-  //       console.error('Connection error: ', err);
-  //       client.end();
-  //     });
-  //     client.on('reconnect', () => {
-  //       setConnectStatus('Reconnecting');
-  //     });
-  //     client.on('message', (topic, message) => {
-  //       const payload = { topic, message: message.toString() };
-  //       setPayload(payload);
-  //     });
-  //   }
-  // }, [client]);
-
-  // useEffect(() => {
-  //   console.log("connectionStatus: " + connectStatus)
-  // }, [connectStatus])
-
-  // const mqttDisconnect = () => {
-  //   if (client) {
-  //     client.end(() => {
-  //       setConnectStatus('Connect');
-  //     });
-  //   }
-  // }
-
-  // const mqttPublish = (context) => {
-  //   if (client) {
-  //     const { topic, qos, payload } = context;
-  //     client.publish(topic, payload, { qos }, error => {
-  //       if (error) {
-  //         console.log('Publish error: ', error);
-  //       }
-  //     });
-  //   }
-  // }
-
-  // const mqttSub = (subscription) => {
-  //   if (client) {
-  //     const { topic, qos } = subscription;
-  //     client.subscribe(topic, { qos }, (error) => {
-  //       if (error) {
-  //         console.log('Subscribe to topics error', error)
-  //         return
-  //       }
-  //     });
-  //   }
-  // };
-
-  // const mqttUnSub = (subscription) => {
-  //   if (client) {
-  //     const { topic } = subscription;
-  //     client.unsubscribe(topic, error => {
-  //       if (error) {
-  //         console.log('Unsubscribe error', error)
-  //         return
-  //       }
-  //     });
-  //   }
-  // };
-
-  // const connection = {
-  //   subscribe: mqttSub,
-  //   unsubscibe: mqttUnSub,
-  //   publish: mqttPublish,
-  //   disconnect: mqttDisconnect,
-  //   payload: payload
-  // }
 
   const [value, setValue] = React.useState(0);
 
@@ -164,54 +73,14 @@ export default function App() {
     { 'label': 'Power', 'component': <PowerLevels /> }
   ]
 
-  const waterPumpStates = {
-    0: "off",
-    1: "on"
-  }
-
-  const topicName = "camper/actuators/waterpump"
-
-  // const { payload } = useSubscription(topicName + '/out');
-  const { client } = useMqttState();
-
-  const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
-  const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
-
-  const handleChange = (event) => {
-
-    setWaterPumpSwitchState(event.target.checked);
-
-    console.log("event.target.checked: " + event.target.checked);
-
-    console.log("waterPumpState: " + waterPumpState)
-    console.log("topicName: " + topicName + '/in')
-    console.log("client: " + client)
-    console.log("published...")
-
-    client?.publish(topicName + '/in', "{ \"state\": \"" + waterPumpState + "\" }");
-
-    console.log("published... done")
-
-    // console.log("[Number(waterPumpState)]: " + [Number(waterPumpState)])
-    // console.log("waterPumpStates: " + waterPumpStates[Number(waterPumpState)])
-  };
-
-
-
-
   return (
 
-    <Connector brokerUrl="ws://192.168.68.53:9001" options={{ keepalive: 0 }}>
-      {/* <Connector brokerUrl="ws://192.168.68.69:9001" options={{ keepalive: 0 }}> */}
+    <Connector brokerUrl="ws://192.168.68.53:9001" options={{ keepalive: 10 }}>
 
-      {/* <Switch
-        checked={waterPumpSwitchState}
-        onChange={handleChange}
-      /> */}
-      <Status />
-      <WaterPumpContent />
-      {/* <Boiler /> */}
-      {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
+      <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel>
+      {/* <Status /> */}
+      {/* <WaterPumpContent /> */}
+      <Boiler />
 
       <Modal
         open={open}

@@ -12,9 +12,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Boiler = (props) => {
 
-    const topicName = "camper/actuators/boiler/"
+    const topicName = "camper/actuators/boiler"
 
-    const { payload } = useSubscription(topicName + '/out', 2);
+    // const { payload } = useSubscription(topicName + '/out');
     const { client, connectionStatus } = useMqttState();
 
     const boilerStates = {
@@ -28,31 +28,26 @@ const Boiler = (props) => {
     const [boilerState, setBoilerState] = useState(boilerStates[0])
 
     // useEffect(() => {
-    //     console.log("payload.topic: " + topicName)
-    //     console.log("props.connection: " + props.connection)
-    //     props.connection.subscribe({ topic: topicName + 'out', qos: 0 })
-    // }, [props.connection])
 
-    useEffect(() => {
+    //     if (payload?.topic?.includes(topicName)) {
+    //         console.log("payload.topic: " + payload.topic.toString())
 
-        if (payload?.topic?.includes(topicName)) {
-            // console.log("payload.topic: " + payload.topic.toString())
+    //         console.log("payload.message: " + payload.message)
 
-            // console.log("payload.message: " + payload.message)
+    //         if (payload.message) {
 
-            if (payload.message) {
+    //             // console.log('Boiler received: ' + payload.message.toString())
 
-                // console.log('Boiler received: ' + payload.message.toString())
+    //             var jsonObject = JSON.parse(payload.message)
 
-                var jsonObject = JSON.parse(payload.message)
+    //             // console.log('JSONObject: ' + jsonObject)
+    //             console.log('[Payload]: ' + payload)
+    //             console.log('Boiler status: ' + jsonObject['state'])
 
-                // console.log('JSONObject: ' + jsonObject)
-                console.log('Boiler status: ' + jsonObject['state'])
-
-                setOpen(true)
-            }
-        }
-    }, [payload])
+    //             setOpen(true)
+    //         }
+    //     }
+    // }, [payload])
 
     useEffect(() => {
 
@@ -85,6 +80,8 @@ const Boiler = (props) => {
         }
 
         setChecked50(event.target.checked);
+        setOpen(true);
+        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
     const handleChange70 = (event) => {
@@ -94,6 +91,8 @@ const Boiler = (props) => {
         }
 
         setChecked70(event.target.checked);
+        setOpen(true);
+        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
     const [open, setOpen] = React.useState(false);

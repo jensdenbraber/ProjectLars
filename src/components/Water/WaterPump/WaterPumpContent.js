@@ -5,17 +5,6 @@ import MuiAlert from '@mui/material/Alert';
 
 import { useSubscription, useMqttState } from 'mqtt-react-hooks';
 
-// const gpio = require('rpi-gpio')
-// const gpiop = gpio.promise;
-
-// gpiop.setup(4, gpio.DIR_OUT);
-
-// const Gpio = require('onoff').Gpio;
-// const Gpiop = Gpio.promise;
-
-// const LED = new Gpio(4, 'out'); // gpio 4 as out
-
-
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -27,16 +16,10 @@ const WaterPumpContent = (props) => {
         1: "on"
     }
 
-
-
-
-    // current LED state
-    let isWaterpumpOn = false;
-
     const topicName = "camper/actuators/waterpump"
 
-    const { payload } = useSubscription(topicName + '/out', 2);
-    const { client } = useMqttState();
+    const { payload } = useSubscription(topicName + '/out');
+    const { connectionStatus, client } = useMqttState();
 
     const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
@@ -45,36 +28,46 @@ const WaterPumpContent = (props) => {
 
     useEffect(() => {
 
-        console.log("payload?.message: " + payload?.message)
+        console.log("payload: " + payload)
+        console.log("payload.topic: " + payload?.topic.toString())
 
-        // if (payload?.topic?.includes(topicName)) {
-        if (payload?.message) {
-
-            var jsonObject = JSON.parse(payload?.message)
-
-            console.log("waterpump state: " + jsonObject['state'])
-
-            setOpen(true)
+        if (payload) {
+            console.log("payload!!!!!")
         }
-        // }
-    }, [payload?.message])
+
+        if (payload?.topic?.includes(topicName)) {
+            console.log("payload.topic: " + payload.topic.toString())
+
+            console.log("payload.message: " + payload.message)
+
+            if (payload.message) {
+
+                var jsonObject = JSON.parse(payload.message)
+
+                console.log('waterpump status: ' + jsonObject['state'])
+
+                setOpen(true)
+            }
+        }
+    }, [payload])
 
     useEffect(() => {
 
         if (waterPumpSwitchState) {
             // console.log("waterPumpStates[1] : " + waterPumpStates[1])
-
-            setWaterPumpState(waterPumpStates[1])
-        }
-
-        if (!waterPumpSwitchState) {
-            // console.log("waterPumpStates[0] : " + waterPumpStates[0])
+            console.log("payload : " + payload)
+            console.log("connectionStatus : " + connectionStatus)
 
             setWaterPumpState(waterPumpStates[0])
         }
 
-        // client?.publish(topicName + '/in', "{ \"state\": \"" + waterPumpState + "\" }", 2);
+        if (!waterPumpSwitchState) {
+            // console.log("waterPumpStates[0] : " + waterPumpStates[0])
+            console.log("payload : " + payload)
+            console.log("connectionStatus : " + connectionStatus)
 
+            setWaterPumpState(waterPumpStates[1])
+        }
     }, [waterPumpSwitchState, waterPumpStates])
 
     const handleChange = (event) => {
@@ -86,29 +79,17 @@ const WaterPumpContent = (props) => {
 
         client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
 
-        // waterpumpOut.writeSync(waterPumpState); // provide 1 or 0 
-
         if (waterPumpState == "on") {
-
             console.log("waterPumpState == on")
-
-
-            // GPIO.output(led, GPIO.HIGH)
-            // LED.writeSync(1); // make it 1 (on)
-            // gpio.write(4, true);
-            // gpio.setup(4, gpio.DIR_OUT, writeOn);
+            console.log("connectionStatus : " + connectionStatus)
+            setOpen(true)
         }
 
         if (waterPumpState == "off") {
             console.log("waterPumpState == off")
-
-
-            // LED.writeSync(0); // make it 0 (off)
-            // GPIO.output(led, GPIO.LOW)
-            // gpio.write(4, false);
-            // gpio.setup(4, gpio.DIR_OUT, writeOff);
+            console.log("connectionStatus : " + connectionStatus)
+            setOpen(true)
         }
-
     };
 
     const handleClose = (event, reason) => {
@@ -123,6 +104,7 @@ const WaterPumpContent = (props) => {
         <>
             <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Water pump payload: {payload}
                     Water pump status: {payload?.message}
                 </Alert>
             </Snackbar>

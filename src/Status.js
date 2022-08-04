@@ -59,6 +59,7 @@ export default function Status() {
 
     return (
         <>
+            <h1>{`Status: ${connectionStatus}`}</h1>
             {/* <h1>{`Status: ${connectionStatus}`}</h1>;
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span>{`topic:${message?.topic} - message: ${message?.message}`}</span>
