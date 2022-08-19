@@ -91,8 +91,11 @@ export default function App() {
       <Box sx={{
         width: 1024,
         height: 600,
-        display: 'inline-flex',
-        justifyContent: 'space-around'
+        display: 'grid',
+        columnGap: 3,
+        rowGap: 1,
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        // justifyContent: 'space-evenly'
       }}>
         <WaterTankLevels />
         <Boiler />
@@ -144,7 +147,7 @@ export default function App() {
         }}
         >Water Tank Levels</Button> */}
 
-        <Button onClick={() => window.location.reload()}>Refresh</Button>
+        <Button onClick={() => window.location.reload()}>Refresh page</Button>
         {/* <div onClick={() => setOpen(true)}>Night mode</div> */}
 
         {/*

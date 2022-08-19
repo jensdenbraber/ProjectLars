@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
-import FloatingBox from './FloatingBox';
-
 const Clock = () => {
 
     const [dateState, setDateState] = useState(new Date());
@@ -13,12 +11,10 @@ const Clock = () => {
 
     return (
         <div>
-            <span>
+            <h2>
                 {moment(dateState).format("dddd D MMMM HH:mm:ss")}
-            </span>
+            </h2>
         </div>
-        // <FloatingBox top="5%" left="80%" width="13%" height="15%" buttonChildren={<>{moment(new Date()).format("dddd D MMMM HH:mm")}</>}>
-        // </FloatingBox>
     )
 }
 

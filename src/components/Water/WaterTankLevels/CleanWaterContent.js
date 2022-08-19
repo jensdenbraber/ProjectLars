@@ -20,9 +20,9 @@ const CleanWaterContent = (props) => {
     }, [message])
 
     return (
-        <div className="relative" style={{ zindex: 10, top: props.top, left: props.left, width: props.width, height: props.height, backgroundColor: props.backgroundColor }}>
+        <div className="relative">
             <img src={process.env.PUBLIC_URL + '/Assets/TapWater.svg'} alt="TapWater" style={{ height: "20%", width: "20%" }} />
-            <span style={{ zindex: 10, top: props.top, left: props.left, width: props.width, height: props.height, backgroundColor: props.backgroundColor }}>Clean {waterLevel} %</span>
+            <span>Clean {waterLevel} %</span>
         </div>
     );
 }
