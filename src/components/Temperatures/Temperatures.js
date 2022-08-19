@@ -6,9 +6,9 @@ import Refrigerator from './Refrigerator';
 const Temperatures = (props) => {
     return (
         <>
-            {/* <Freezer {...props}>
+            <Freezer {...props}>
             </Freezer>
-            <Refrigerator {...props}>
+            {/* <Refrigerator {...props}>
             </Refrigerator>
             <Indoor {...props} >
             </Indoor>

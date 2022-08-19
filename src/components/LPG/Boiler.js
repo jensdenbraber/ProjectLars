@@ -14,7 +14,7 @@ const Boiler = (props) => {
 
     const topicName = "camper/actuators/boiler"
 
-    // const { payload } = useSubscription(topicName + '/out');
+    const { payload } = useSubscription(topicName + '/out');
     const { client, connectionStatus } = useMqttState();
 
     const boilerStates = {
@@ -28,6 +28,8 @@ const Boiler = (props) => {
     const [boilerState, setBoilerState] = useState(boilerStates[0])
 
     // useEffect(() => {
+
+    //     console.log("payload: " + payload)
 
     //     if (payload?.topic?.includes(topicName)) {
     //         console.log("payload.topic: " + payload.topic.toString())
@@ -51,8 +53,8 @@ const Boiler = (props) => {
 
     useEffect(() => {
 
-        console.log("boilerState: " + boilerState)
-        console.log("published...")
+        // console.log("boilerState: " + boilerState)
+        // console.log("published...")
 
         client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
 
@@ -81,7 +83,7 @@ const Boiler = (props) => {
 
         setChecked50(event.target.checked);
         setOpen(true);
-        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
+        // client.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
     const handleChange70 = (event) => {
@@ -92,7 +94,7 @@ const Boiler = (props) => {
 
         setChecked70(event.target.checked);
         setOpen(true);
-        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
+        // client.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
     const [open, setOpen] = React.useState(false);

@@ -11,9 +11,6 @@ const CleanWaterContent = (props) => {
 
     useEffect(() => {
 
-        // console.log("CleanWaterContent payload topic: " + message?.topic)
-        // console.log("CleanWaterContent payload message: " + message?.message)
-
         if (message?.message != null) {
 
             const JSONObject = JSON.parse(message?.message)

@@ -44,3 +44,11 @@ code {
   min-width: 80%;
   min-height: 80%;
 }
+
+.showTab {
+  display: block;
+}
+
+.hideTab {
+  display: none;
+}

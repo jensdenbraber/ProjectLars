@@ -54,18 +54,10 @@ const WaterPumpContent = (props) => {
     useEffect(() => {
 
         if (waterPumpSwitchState) {
-            // console.log("waterPumpStates[1] : " + waterPumpStates[1])
-            console.log("payload : " + payload)
-            console.log("connectionStatus : " + connectionStatus)
-
             setWaterPumpState(waterPumpStates[0])
         }
 
         if (!waterPumpSwitchState) {
-            // console.log("waterPumpStates[0] : " + waterPumpStates[0])
-            console.log("payload : " + payload)
-            console.log("connectionStatus : " + connectionStatus)
-
             setWaterPumpState(waterPumpStates[1])
         }
     }, [waterPumpSwitchState, waterPumpStates])
@@ -73,9 +65,6 @@ const WaterPumpContent = (props) => {
     const handleChange = (event) => {
 
         setWaterPumpSwitchState(event.target.checked)
-
-        // console.log("event.target.checked: " + event.target.checked)
-        // console.log("waterPumpState: " + waterPumpState)
 
         client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
 

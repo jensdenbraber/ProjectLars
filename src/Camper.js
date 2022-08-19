@@ -8,7 +8,7 @@ import FloatingBox2 from './components/FloatingBox2';
 export default function Camper(props) {
 
     return (
-        <div className="row">
+        <div className={props.display ? "showTab" : "hideTab"}>
             <div className="fixed">
 
                 <FloatingBox2 top="15%" left="10%" width="70%" height="70%">

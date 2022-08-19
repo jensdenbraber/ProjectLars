@@ -28,12 +28,14 @@ import Box from '@mui/material/Box';
 import moment from 'moment'
 import { ReactComponent as Logo } from './polarbear.svg';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import TabPanel from './TabPanel'
 import Temperatures from './components/Temperatures/Temperatures';
 import PowerLevels from './components/Power/PowerLevels';
 
 import Boiler from './components/LPG/Boiler'
+import WaterPump from './components/Water/WaterPump/WaterPump';
 import WaterPumpContent from './components/Water/WaterPump/WaterPumpContent';
 
 const style = {
@@ -73,14 +75,36 @@ export default function App() {
     { 'label': 'Power', 'component': <PowerLevels /> }
   ]
 
+  const [camper, setCamper] = React.useState(true);
+  const [waterTankLevels, setWaterTankLevels] = React.useState(false);
+  // const [lpg, setLpg] = React.useState(false);
+  // const [temperatures, setTemperatures] = React.useState(false);
+  // const [powerLevels, setPowerLevels] = React.useState(false);
+
   return (
 
-    <Connector brokerUrl="ws://192.168.68.53:9001" options={{ keepalive: 10 }}>
+    <Connector brokerUrl="ws://192.168.68.53:9001" options={{ keepalive: 0 }}>
 
-      <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel>
+      {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
       {/* <Status /> */}
-      {/* <WaterPumpContent /> */}
-      <Boiler />
+      <Box sx={{
+        width: 1024,
+        height: 600
+      }}>
+        <WaterTankLevels />
+        <Boiler />
+        <Temperatures />
+      </Box>
+
+      {/* {camper && <Camper />}
+      {waterTankLevels && <WaterPumpContent />} */}
+
+      {/* <Camper display={{ camper }} /> */}
+      {/* <WaterTankLevels display={{ waterTankLevels }} /> */}
+      {/* {lpg && <Lpg />}
+      {temperatures && <Temperatures />}
+      {powerLevels && <PowerLevels />}
+      {nightMode && <PowerLevels />} */}
 
       <Modal
         open={open}
@@ -98,30 +122,89 @@ export default function App() {
           </Box>
         </Box>
       </Modal>
+
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+
+
+
+        {/* <Button onClick={() => {
+          // alert('Camper');
+          setCamper(!camper)
+        }}> Camper</Button>
+
+        <Button onClick={() => {
+          // alert('Water Tank Levels');
+          // setWaterTankLevels(!waterTankLevels)
+        }}
+        >Water Tank Levels</Button> */}
+
+        <Button onClick={() => window.location.reload()}>Refresh</Button>
+
+        {/*
+
         <BottomNavigation
           showLabels
           value={value}
           onChange={(event, newValue) => {
             console.log("newValue: " + newValue)
-            console.log("tabs.length: " + tabs.length)
-            if (-1 < newValue && newValue < tabs.length) {
-              setValue(newValue);
-              console.log("newValue: " + newValue)
+
+            switch (newValue) {
+
+              case "camper":
+                setCamper(!camper)
+                break
+
+              case "waterTankLevels":
+                setWaterTankLevels(!waterTankLevels)
+                break
+
+              case "lpg":
+                setLpg(!lpg)
+                break
+
+              case "temperatures":
+                setTemperatures(!temperatures)
+                break
+
+              case "power":
+                setPowerLevels(!powerLevels)
+                break
+
+              // case "nightMode":
+              //   setCamper(nightMode)
+              //   break
+
+              // default:
+              //   null
+
             }
-            if (newValue == tabs.length) {
-              handleOpen()
-              console.log("nightmode")
-            }
+
+            // console.log("tabs.length: " + tabs.length)
+            // if (-1 < newValue && newValue < tabs.length) {
+            //   setValue(newValue);
+            //   console.log("newValue: " + newValue)
+            // }
+            // if (newValue == tabs.length) {
+            //   handleOpen()
+            //   console.log("nightmode")
+            // }
           }}
         >
-          <BottomNavigationAction label="Camper" value="0" icon={<Home />} />
+          <BottomNavigationAction label="Camper" value="camper" icon={<Home />} />
+          <BottomNavigationAction label="Water tank levels" value="waterTankLevels" icon={<WaterIcon />} />
+          <BottomNavigationAction label="LPG" value="lpg" icon={<PropaneTankIcon />} />
+          <BottomNavigationAction label="Temperatures" value="temperature" icon={<CloudIcon />} />
+          <BottomNavigationAction label="Power" value="power" icon={<BoltIcon />} />
+          <BottomNavigationAction label="NightMode" value="nightMode" icon={<ModeNightIcon />} />
+
+          {/* <BottomNavigationAction label="Camper" value="0" icon={<Home />} />
           <BottomNavigationAction label="Water tank levels" value="1" icon={<WaterIcon />} />
           <BottomNavigationAction label="LPG" value="2" icon={<PropaneTankIcon />} />
           <BottomNavigationAction label="Temperatures" value="3" icon={<CloudIcon />} />
           <BottomNavigationAction label="Power" value="4" icon={<BoltIcon />} />
-          <BottomNavigationAction label="NightMode" value="5" icon={<ModeNightIcon />} />
+          <BottomNavigationAction label="NightMode" value="5" icon={<ModeNightIcon />} /> 
         </BottomNavigation>
+        */}
       </Paper>
     </Connector>
   )
