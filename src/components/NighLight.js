@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { ReactComponent as Logo } from '../polarbear.svg';
+import Clock from '../components/Clock'
 
 const style = {
     position: 'absolute',
@@ -49,7 +50,7 @@ const NighLight = (props) => {
                 <Box sx={style}>
                     <Box sx={styleSubBox}>
                         <Typography id="modal-modal-description" sx={styleTypography}>
-                            {moment(new Date()).format("dddd D MMMM HH:mm")}
+                            <Clock />
                         </Typography>
                         <Logo fill="#A7A9AB" stroke="#A7A9AB" height={120} />
                     </Box>

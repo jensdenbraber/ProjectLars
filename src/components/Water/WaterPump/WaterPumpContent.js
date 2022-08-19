@@ -28,23 +28,23 @@ const WaterPumpContent = (props) => {
 
     useEffect(() => {
 
-        console.log("payload: " + payload)
-        console.log("payload.topic: " + payload?.topic.toString())
+        // console.log("payload: " + payload)
+        // console.log("payload.topic: " + payload?.topic.toString())
 
         if (payload) {
-            console.log("payload!!!!!")
+            // console.log("payload!!!!!")
         }
 
         if (payload?.topic?.includes(topicName)) {
-            console.log("payload.topic: " + payload.topic.toString())
+            // console.log("payload.topic: " + payload.topic.toString())
 
-            console.log("payload.message: " + payload.message)
+            // console.log("payload.message: " + payload.message)
 
             if (payload.message) {
 
                 var jsonObject = JSON.parse(payload.message)
 
-                console.log('waterpump status: ' + jsonObject['state'])
+                // console.log('waterpump status: ' + jsonObject['state'])
 
                 setOpen(true)
             }
@@ -69,14 +69,14 @@ const WaterPumpContent = (props) => {
         client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
 
         if (waterPumpState == "on") {
-            console.log("waterPumpState == on")
-            console.log("connectionStatus : " + connectionStatus)
+            // console.log("waterPumpState == on")
+            // console.log("connectionStatus : " + connectionStatus)
             setOpen(true)
         }
 
         if (waterPumpState == "off") {
-            console.log("waterPumpState == off")
-            console.log("connectionStatus : " + connectionStatus)
+            // console.log("waterPumpState == off")
+            // console.log("connectionStatus : " + connectionStatus)
             setOpen(true)
         }
     };
@@ -91,12 +91,12 @@ const WaterPumpContent = (props) => {
 
     return (
         <>
-            <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
+            {/* <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     Water pump payload: {payload}
                     Water pump status: {payload?.message}
                 </Alert>
-            </Snackbar>
+            </Snackbar> */}
 
             <Switch
                 checked={waterPumpSwitchState}

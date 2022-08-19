@@ -25,7 +25,7 @@ const Freezer = (props) => {
 
                 var jsonObject = JSON.parse(message.message)
 
-                console.log("jsonObject: " + jsonObject)
+                // console.log("jsonObject: " + jsonObject)
 
                 // {"battery":74,"humidity":85.57,"linkquality":57,"pressure":1025,"temperature":-10.42,"voltage":2955}
                 setTemperature(jsonObject['temperature'])

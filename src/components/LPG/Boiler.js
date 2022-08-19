@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Switch from '@mui/material/Switch';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 
 import { useSubscription, useMqttState } from 'mqtt-react-hooks';
 
@@ -112,15 +113,15 @@ const Boiler = (props) => {
     };
 
     return (
-        <>
-            <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={6000} onClose={handleClose}>
+        <Box>
+            {/* <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     Boiler status: {boilerState}
                 </Alert>
-            </Snackbar>
+            </Snackbar> */}
 
             <h2>
-                Boiler {connectionStatus}
+                Boiler
             </h2>
             <div>
                 <span>50 graden</span>
@@ -137,7 +138,7 @@ const Boiler = (props) => {
                 checked={checked70}
                 onChange={handleChange70}
             />
-        </>
+        </Box>
     );
 }
 

@@ -5,14 +5,12 @@ import Box from '@mui/material/Box';
 const WaterTankLevels = (props) => {
 
     return (
-        <>
-            <Box>
-                <CleanWater {...props}>
-                </CleanWater>
-                {/* <GrayWater {...props}>
+        <Box>
+            <CleanWater {...props}>
+            </CleanWater>
+            {/* <GrayWater {...props}>
                 </GrayWater> */}
-            </Box>
-        </>
+        </Box>
     );
 }
 

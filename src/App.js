@@ -22,6 +22,7 @@ import Paper from '@mui/material/Paper';
 import WaterTankLevels from './components/Water/WaterTankLevels/WaterTankLevels';
 import Lpg from './components/LPG/Lpg';
 import NightLight from './components/NighLight';
+import Clock from './components/Clock';
 import PropaneTankIcon from '@mui/icons-material/PropaneTank';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -89,11 +90,16 @@ export default function App() {
       {/* <Status /> */}
       <Box sx={{
         width: 1024,
-        height: 600
+        height: 600,
+        display: 'inline-flex',
+        justifyContent: 'space-around'
       }}>
         <WaterTankLevels />
         <Boiler />
         <Temperatures />
+        <Clock />
+        {/* <NightLight setOpen={open} /> */}
+        {/* <NightLight /> */}
       </Box>
 
       {/* {camper && <Camper />}
@@ -106,7 +112,7 @@ export default function App() {
       {powerLevels && <PowerLevels />}
       {nightMode && <PowerLevels />} */}
 
-      <Modal
+      {/* <Modal
         open={open}
         onClick={handleClose}
         onClose={handleClose}
@@ -116,12 +122,12 @@ export default function App() {
         <Box sx={style}>
           <Box sx={styleSubBox}>
             <Typography id="modal-modal-description" sx={styleTypography}>
-              {moment(new Date()).format("dddd D MMMM HH:mm")}
+              {moment(new Date()).format("dddd D MMMM HH:mm:ss")}
             </Typography>
             <Logo fill="#A7A9AB" stroke="#A7A9AB" height={120} />
           </Box>
         </Box>
-      </Modal>
+      </Modal> */}
 
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
 
@@ -139,6 +145,7 @@ export default function App() {
         >Water Tank Levels</Button> */}
 
         <Button onClick={() => window.location.reload()}>Refresh</Button>
+        {/* <div onClick={() => setOpen(true)}>Night mode</div> */}
 
         {/*
 
@@ -206,6 +213,6 @@ export default function App() {
         </BottomNavigation>
         */}
       </Paper>
-    </Connector>
+    </Connector >
   )
 }
