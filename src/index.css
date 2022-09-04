@@ -10,6 +10,7 @@ body,
   margin: 0;
   padding: 0;
   position: relative;
+  cursor: none;
 }
 
 body {
@@ -26,17 +27,33 @@ code {
     monospace;
 }
 
+input {
+  cursor: none !important;
+}
+
 .fixed {
   height: 100%;
-  width:100%;
+  width: 100%;
   top: 0;
   left: 0;
-  position:fixed;
+  position: fixed;
+}
+
+.relative {
+  position: relative;
 }
 
 .full-screen {
-  margin-left:10%;
-  margin-top:10%;
+  margin-left: 10%;
+  margin-top: 10%;
   min-width: 80%;
   min-height: 80%;
+}
+
+.showTab {
+  display: block;
+}
+
+.hideTab {
+  display: none;
 }

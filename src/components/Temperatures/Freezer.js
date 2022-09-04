@@ -1,48 +1,42 @@
 import React, { useState, useEffect } from 'react';
-// import { LocalDrink } from '@mui/icons-material';
+import { AcUnit } from '@mui/icons-material';
+
+import { useSubscription, useMqttState } from 'mqtt-react-hooks';
 
 const Freezer = (props) => {
 
-    const record = {
-        topic: 'zigbee2mqtt/Vriezer',
-        // topic: 'camper/sensors/temperatures/48:3f:da:c:74:fe/out',
-        qos: 0
-    };
+    const { message } = useSubscription("camper/sensors/vriezer");
 
-    const payload = props.connection.payload
+    // useEffect(() => {
+    //     const record = {
+    //         topic: 'zigbee2mqtt/Vriezer',
+    //         // topic: 'camper/sensors/temperatures/48:3f:da:c:74:fe/out',
+    //         qos: 0
+    //     };
 
-    useEffect(() => {
-        props.connection.subscribe(record);
-    }, [])
+    //     props.connection.subscribe(record);
+    // }, [props.connection])
 
-    const [messages, setMessages] = useState(null)
     const [temperature, setTemperature] = useState(null)
 
     useEffect(() => {
+        if (message?.topic) {
+            if (message.message) {
 
-        if (payload.topic) {
-            if (payload.message) {
+                var jsonObject = JSON.parse(message.message)
 
-                var JSONObject = JSON.parse(payload.message)
-
-                // console.log('clean water level: ' + JSONObject['waterlevel'])
+                // console.log("jsonObject: " + jsonObject)
 
                 // {"battery":74,"humidity":85.57,"linkquality":57,"pressure":1025,"temperature":-10.42,"voltage":2955}
-console.log("freezer: " + JSONObject)
-                setTemperature(JSONObject['temperature'])
-                setMessages(payload)
+                setTemperature(jsonObject['temperature'])
             }
         }
-    }, [payload])
-
-    // useEffect(() => {
-    //     console.log(messages)
-    // }, [messages])
+    }, [message])
 
     return (
         <>
             <div>
-                {props.icon}{props.icon}
+                <AcUnit style={{ fill: "darkblue" }} />
                 <span>Freezer {temperature} &deg;C</span>
             </div>
         </>

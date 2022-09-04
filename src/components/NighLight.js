@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { ReactComponent as Logo } from '../polarbear.svg';
+import Clock from '../components/Clock'
 
 const style = {
     position: 'absolute',
@@ -30,15 +31,15 @@ const styleTypography = {
 
 const NighLight = (props) => {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
         <>
-            <FloatingBox top="60%" left="80%" width="13%" height="30%" {...props} action={handleOpen} icon={<ModeNight className="full-screen" />}>
+            {/* <FloatingBox top="60%" left="80%" width="13%" height="30%" {...props} action={handleOpen} icon={<ModeNight className="full-screen" />}>
                 Power off
-            </FloatingBox>
+            </FloatingBox> */}
             <Modal
                 open={open}
                 onClick={handleClose}
@@ -49,7 +50,7 @@ const NighLight = (props) => {
                 <Box sx={style}>
                     <Box sx={styleSubBox}>
                         <Typography id="modal-modal-description" sx={styleTypography}>
-                            {moment(new Date()).format("dddd D MMMM HH:mm")}
+                            <Clock />
                         </Typography>
                         <Logo fill="#A7A9AB" stroke="#A7A9AB" height={120} />
                     </Box>

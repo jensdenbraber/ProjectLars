@@ -1,57 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Slider } from '@mui/material';
 
 const StartingBattery = (props) => {
-
-    const record = {
-        topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
-        qos: 0
-    };
 
     const payload = props.connection.payload
 
     useEffect(() => {
-        props.connection.subscribe(record);
-    }, [])
+        const record = {
+            topic: 'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out',
+            qos: 0
+        };
 
-    const [messages, setMessages] = useState(null)
-    const [batteryLevel, setBatteryLevel] = useState(100)
+        props.connection.subscribe(record);
+    }, [props.connection])
+
+    const [batteryLevel, setBatteryLevel] = useState(null)
 
     useEffect(() => {
 
         if (payload.topic) {
             if (payload.message) {
 
-                var JSONObject = JSON.parse(payload.message)
+                var jsonObject = JSON.parse(payload.message)
 
-                // console.log('clean water level: ' + JSONObject['waterlevel'])
-
-                setBatteryLevel(JSONObject['waterlevel'])
-                setMessages(payload)
+                setBatteryLevel(jsonObject['batterylevel'])
             }
         }
     }, [payload])
 
-    // useEffect(() => {
-    //     console.log(messages)
-    // }, [messages])
-
-    const handleSliderChange = (event, batteryLevel) => {
-
-        console.log('handleSliderChange: ' + batteryLevel)
-        setBatteryLevel(batteryLevel);
-    };
-
     return (
         <>
-            <Slider style={{ minHeight: "100%" }}
-                onChange={handleSliderChange}
-                aria-label="Always visible"
-                defaultValue={batteryLevel}
-                orientation="vertical"
-                step={1}
-                value={batteryLevel}
-            />
+            <h2>
+                Start accu
+            </h2>
             <span>Starting battery {batteryLevel} %</span>
         </>
     );
