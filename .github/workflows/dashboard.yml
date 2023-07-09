@@ -4,7 +4,7 @@ env:
   CI: false
   NODE_VERSION: "18.x"
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
