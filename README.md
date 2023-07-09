@@ -1,6 +1,7 @@
 # ProjectLars
 
-[![React Dashboard](https://github.com/jensdenbraber/ProjectLars/actions/workflows/dashboard.yml/badge.svg)](https://github.com/jensdenbraber/ProjectLars/actions/workflows/dashboard.yml)
+[![Lars Dashboard](https://github.com/jensdenbraber/ProjectLars/actions/workflows/dashboard.yml/badge.svg)](https://github.com/jensdenbraber/ProjectLars/actions/workflows/dashboard.yml)
+[![Lars Dashboard Development](https://github.com/jensdenbraber/ProjectLars/actions/workflows/dashboard.yml/badge.svg?branch=dev)](https://github.com/jensdenbraber/ProjectLars/actions/workflows/dashboard.yml)
 
 A dashboard for camper Lars.
 
