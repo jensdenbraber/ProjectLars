@@ -101,7 +101,7 @@ export default function App() {
   return (
     <>
       <FullScreen handle={handle}>
-        <Connector brokerUrl="ws://localhost:9001" options={{ keepalive: 0 }}>
+        <Connector brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
 
           {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
           {/* <Status /> */}
