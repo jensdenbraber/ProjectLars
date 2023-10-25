@@ -20,7 +20,7 @@
 
 
 //     useEffect(() => {
-//         // setClient(mqtt.connect("ws://192.168.68.53:9001"));
+//         // setClient(mqtt.connect("ws://raspberrypi4:9001"));
 //         console.log("connectionStatus: " + connectionStatus)
 //     }, [connectionStatus]);
 
