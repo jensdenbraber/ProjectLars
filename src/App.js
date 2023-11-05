@@ -1,7 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Connector, useSubscription, useMqttState } from 'mqtt-react-hooks';
 import Status from './Status';
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -38,6 +37,8 @@ import PowerLevels from './components/Power/PowerLevels';
 import Boiler from './components/LPG/Boiler'
 import WaterPump from './components/Water/WaterPump/WaterPump';
 import WaterPumpContent from './components/Water/WaterPump/WaterPumpContent';
+
+import HooksConnection from './components/Hook/Connection'
 
 const style = {
   position: 'absolute',
@@ -101,7 +102,8 @@ export default function App() {
   return (
     <>
       <FullScreen handle={handle}>
-        <Connector brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
+          {/* <Boiler /> */}
+        <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
 
           {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
           {/* <Status /> */}
@@ -234,7 +236,7 @@ onChange={(event, newValue) => {
           </BottomNavigation>
         */}
           </Paper>
-        </Connector >
+        </HooksConnection >
       </FullScreen>
     </>
   )
