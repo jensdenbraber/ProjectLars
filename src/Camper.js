@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Clock from './components/Clock'
-import CleanWaterContent from './components/Water/WaterTankLevels/CleanWaterContent'
+import CleanWaterContent from './components/water/waterTankLevels/CleanWaterContent'
 
 import FloatingBox2 from './components/FloatingBox2';
 

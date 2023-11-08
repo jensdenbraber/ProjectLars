@@ -18,8 +18,8 @@ import ModeNightIcon from '@mui/icons-material/ModeNight';
 import CloudIcon from '@mui/icons-material/Cloud';
 // import PropaneIcon from '@mui/icons-material/Propane';
 import Paper from '@mui/material/Paper';
-import WaterTankLevels from './components/Water/WaterTankLevels/WaterTankLevels';
-import Lpg from './components/LPG/Lpg';
+import WaterTankLevels from './components/water/waterTankLevels/WaterTankLevels';
+import Lpg from './components/lpg/Lpg';
 import NightLight from './components/NighLight';
 import Clock from './components/Clock';
 import PropaneTankIcon from '@mui/icons-material/PropaneTank';
@@ -31,12 +31,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import TabPanel from './TabPanel'
-import Temperatures from './components/Temperatures/Temperatures';
-import PowerLevels from './components/Power/PowerLevels';
+import Temperatures from './components/temperatures/Temperatures';
+import PowerLevels from './components/power/PowerLevels';
 
-import Boiler from './components/LPG/Boiler'
-import WaterPump from './components/Water/WaterPump/WaterPump';
-import WaterPumpContent from './components/Water/WaterPump/WaterPumpContent';
+import Boiler from './components/lpg/Boiler'
 
 import HooksConnection from './components/Hook/Connection'
 
