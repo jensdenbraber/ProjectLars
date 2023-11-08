@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Switch from '@mui/material/Switch';
-import Snackbar from '@mui/material/Snackbar';
+import { Switch } from '../../input/Switch';
+import { FormControlLabel } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 
 import useSubscription from '../../Hook/UseSubscription';
