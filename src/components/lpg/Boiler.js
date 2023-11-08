@@ -5,8 +5,8 @@ import MuiAlert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 
 // import { useSubscription, useMqttState } from 'mqtt-react-hooks';
-import useSubscription from '../Hook/UseSubscription'
-import useMqttState from '../Hook/UseMqttState'
+import useSubscription from '../hook/UseSubscription'
+import useMqttState from '../hook/UseMqttState'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

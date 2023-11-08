@@ -36,7 +36,7 @@ import PowerLevels from './components/power/PowerLevels';
 
 import Boiler from './components/lpg/Boiler'
 
-import HooksConnection from './components/Hook/Connection'
+import HooksConnection from './components/hook/Connection'
 
 const style = {
   position: 'absolute',

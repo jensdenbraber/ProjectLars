@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Forest } from '@mui/icons-material';
 
 // import { useSubscription, useMqttState } from 'mqtt-react-hooks';
-import useSubscription from '../Hook/UseSubscription'
+import useSubscription from '../hook/UseSubscription'
 
 const Outdoor = (props) => {
 
