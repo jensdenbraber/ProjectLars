@@ -1,11 +1,11 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import Status from './Status';
+import Status from '../Status';
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-import Camper from "./Camper";
+import Camper from "../components/layout/Camper";
 
 // import HeadsUpDisplay from './components/HeadsUpDisplay';
 
@@ -18,10 +18,10 @@ import ModeNightIcon from '@mui/icons-material/ModeNight';
 import CloudIcon from '@mui/icons-material/Cloud';
 // import PropaneIcon from '@mui/icons-material/Propane';
 import Paper from '@mui/material/Paper';
-import WaterTankLevels from './components/water/waterTankLevels/WaterTankLevels';
-import Lpg from './components/lpg/Lpg';
-import NightLight from './components/NighLight';
-import Clock from './components/Clock';
+import WaterTankLevels from '../components/water/waterTankLevels/WaterTankLevels';
+import Lpg from '../components/lpg/Lpg';
+import NightLight from '../components/NighLight';
+import Clock from '../components/Clock';
 import PropaneTankIcon from '@mui/icons-material/PropaneTank';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -30,13 +30,12 @@ import { ReactComponent as Logo } from './polarbear.svg';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import TabPanel from './TabPanel'
-import Temperatures from './components/temperatures/Temperatures';
-import PowerLevels from './components/power/PowerLevels';
+import Temperatures from '../components/temperatures/Temperatures';
+import PowerLevels from '../components/power/PowerLevels';
 
-import Boiler from './components/lpg/Boiler'
+import Boiler from '../components/lpg/Boiler'
 
-import HooksConnection from './components/hook/Connection'
+import HooksConnection from '../components/hook/Connection'
 
 const style = {
   position: 'absolute',
@@ -103,7 +102,6 @@ export default function App() {
           {/* <Boiler /> */}
         <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
 
-          {/* <TabPanel sx={{ position: 'fixed', bottom: 0, left: 0, top: 0 }} tabs={tabs} tab={value}></TabPanel> */}
           {/* <Status /> */}
           <Box sx={{
             width: 1024,
