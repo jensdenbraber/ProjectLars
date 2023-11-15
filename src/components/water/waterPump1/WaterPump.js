@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import WaterPumpContent from './WaterPumpContent';
 import Box from '@mui/material/Box';
 

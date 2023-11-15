@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import { useSubscription } from 'mqtt-react-hooks';
-import useSubscription from '../../hook/UseSubscription';
+import { UseSubscription } from '../../hooks/mqtt';
 
-const CleanWaterContent = (props) => {
+const CleanWaterContent = () => {
 
-    const { message } = useSubscription([
+    const { message } = UseSubscription([
         'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out'
     ]);
 

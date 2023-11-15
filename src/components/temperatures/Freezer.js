@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { AcUnit } from '@mui/icons-material';
+import { UseSubscription } from '../hooks/mqtt'
 
-// import { useSubscription, useMqttState } from 'mqtt-react-hooks';
-import useSubscription from '../hook/UseSubscription'
+const Freezer = () => {
 
-const Freezer = (props) => {
-
-    const { message } = useSubscription("camper/sensors/vriezer");
+    const { message } = UseSubscription("camper/sensors/vriezer");
 
     // useEffect(() => {
     //     const record = {

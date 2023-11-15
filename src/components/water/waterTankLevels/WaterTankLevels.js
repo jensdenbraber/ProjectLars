@@ -1,3 +1,4 @@
+import React from 'react';
 // import GrayWater from './grayWater';
 import CleanWater from './CleanWater';
 import Box from '@mui/material/Box';

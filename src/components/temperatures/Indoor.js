@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Thermostat } from '@mui/icons-material';
+import { UseSubscription } from '../hooks/mqtt'
 
-// import { useSubscription, useMqttState } from 'mqtt-react-hooks';
-import useSubscription from '../hook/UseSubscription'
+const Indoor = () => {
 
-const Indoor = (props) => {
-
-    const { message } = useSubscription("camper/sensors/binnen");
+    const { message } = UseSubscription("camper/sensors/binnen");
 
     // const payload = props.connection.payload
 

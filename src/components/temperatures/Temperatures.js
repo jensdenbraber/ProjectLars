@@ -1,5 +1,5 @@
+import React from 'react';
 import Box from '@mui/material/Box';
-
 import Freezer from './Freezer';
 import Indoor from './Indoor';
 import Outdoor from './Outdoor';

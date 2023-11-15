@@ -1,10 +1,8 @@
 import { useContext, useEffect, useCallback, useState } from "react"
-
 import { matches } from "mqtt-pattern"
-
 import MqttContext from "./Context"
 
-export default function useSubscription(topic, options = {}) {
+export function UseSubscription(topic, options = {}) {
     const { client, connectionStatus, parserMethod } = useContext(MqttContext)
 
     const [message, setMessage] = useState(undefined)

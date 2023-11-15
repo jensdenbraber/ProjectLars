@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Switch from '@mui/material/Switch';
-import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-import useSubscription from '../../hook/UseSubscription';
-import useMqttState from '../../hook/UseMqttState';
+import { UseSubscription, UseMqttState } from '../../hooks/mqtt'
+// import useSubscription from '../../hooks/mqtt/UseSubscription';
+// import useMqttState from '../../hooks/mqtt/UseMqttState';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const WaterPumpContent = (props) => {
+const WaterPumpContent = () => {
 
     const waterPumpStates = {
         0: "off",
@@ -19,8 +19,8 @@ const WaterPumpContent = (props) => {
 
     const topicName = "camper/actuators/waterpump"
 
-    const { payload } = useSubscription(topicName + '/out');
-    const { connectionStatus, client } = useMqttState();
+    const { payload } = UseSubscription(topicName + '/out');
+    const { client } = UseMqttState();
 
     const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
@@ -90,21 +90,10 @@ const WaterPumpContent = (props) => {
         setOpen(false)
     };
 
-    return (
-        <>
-            {/* <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Water pump payload: {payload}
-                    Water pump status: {payload?.message}
-                </Alert>
-            </Snackbar> */}
-
-            <Switch
-                checked={waterPumpSwitchState}
-                onChange={handleChange}
-            />
-        </>
-    )
+    return <Switch
+        checked={waterPumpSwitchState}
+        onChange={handleChange}
+    />
 }
 
 export default WaterPumpContent;

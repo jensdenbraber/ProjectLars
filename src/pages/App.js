@@ -1,41 +1,17 @@
-// import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import Status from '../Status';
-
+import '../styles/App.css';
+import React from 'react';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-
 import Camper from "../components/layout/Camper";
-
-// import HeadsUpDisplay from './components/HeadsUpDisplay';
-
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Home } from '@mui/icons-material';
-import WaterIcon from '@mui/icons-material/Water';
-import BoltIcon from '@mui/icons-material/Bolt';
-import ModeNightIcon from '@mui/icons-material/ModeNight';
-import CloudIcon from '@mui/icons-material/Cloud';
-// import PropaneIcon from '@mui/icons-material/Propane';
 import Paper from '@mui/material/Paper';
 import WaterTankLevels from '../components/water/waterTankLevels/WaterTankLevels';
 import Lpg from '../components/lpg/Lpg';
-import NightLight from '../components/NighLight';
 import Clock from '../components/Clock';
-import PropaneTankIcon from '@mui/icons-material/PropaneTank';
-import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import moment from 'moment'
-import { ReactComponent as Logo } from './polarbear.svg';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
 import Temperatures from '../components/temperatures/Temperatures';
 import PowerLevels from '../components/power/PowerLevels';
-
 import Boiler from '../components/lpg/Boiler'
-
-import HooksConnection from '../components/hook/Connection'
+import HooksConnection from '../components/hooks/mqtt/Connection'
 
 const style = {
   position: 'absolute',
@@ -99,7 +75,7 @@ export default function App() {
   return (
     <>
       <FullScreen handle={handle}>
-          {/* <Boiler /> */}
+        {/* <Boiler /> */}
         <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
 
           {/* <Status /> */}

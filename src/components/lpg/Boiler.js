@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Switch from '@mui/material/Switch';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 
-// import { useSubscription, useMqttState } from 'mqtt-react-hooks';
-import useSubscription from '../hook/UseSubscription'
-import useMqttState from '../hook/UseMqttState'
+import { UseSubscription, UseMqttState } from '../hooks/mqtt'
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-
-const Boiler = (props) => {
+const Boiler = () => {
 
     const topicName = "camper/actuators/boiler"
 
-    const { payload } = useSubscription(topicName + '/out');
-    const { client, connectionStatus } = useMqttState();
+    const { payload } = UseSubscription(topicName + '/out');
+    const { client } = UseMqttState();
 
     const boilerStates = {
         0: "off",
