@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button';
+import React from 'react';
 
 export default function FloatingBox2(props) {
 
