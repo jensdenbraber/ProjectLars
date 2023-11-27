@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { UseSubscription } from '../../hooks/mqtt';
+import { UseSubscription } from '../../../hooks/mqtt';
+import tapWaterIcon from '../../../assets/TapWater.svg'
 
 const CleanWaterContent = () => {
 
@@ -21,7 +22,7 @@ const CleanWaterContent = () => {
 
     return (
         <div className="relative">
-            <img src={process.env.PUBLIC_URL + '/Assets/TapWater.svg'} alt="TapWater" style={{ height: "20%", width: "20%" }} />
+            <img src={tapWaterIcon} alt="TapWater" style={{ height: "20%", width: "20%" }} />
             <span>Clean {waterLevel} %</span>
         </div>
     );

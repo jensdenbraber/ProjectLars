@@ -6,8 +6,8 @@ const PowerLevels = (props) => {
 
     return (
         <>
-            {/* <StartingBattery {...props} /> */}
-            {/* <HouseHoldBattery {...props} /> */}
+            <StartingBattery {...props} />
+            <HouseHoldBattery {...props} />
         </>
     );
 }

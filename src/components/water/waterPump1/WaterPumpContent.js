@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Switch from '@mui/material/Switch';
-import MuiAlert from '@mui/material/Alert';
-
-import { UseSubscription, UseMqttState } from '../../hooks/mqtt'
-// import useSubscription from '../../hooks/mqtt/UseSubscription';
-// import useMqttState from '../../hooks/mqtt/UseMqttState';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import { Switch } from '@mui/material';
+import { UseSubscription, UseMqttState } from '../../../hooks/mqtt'
 
 const WaterPumpContent = () => {
 
@@ -25,7 +17,7 @@ const WaterPumpContent = () => {
     const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
 
-    const [open, setOpen] = React.useState(false);
+    const [, setOpen] = React.useState(false);
 
     useEffect(() => {
 
@@ -45,7 +37,7 @@ const WaterPumpContent = () => {
 
                 var jsonObject = JSON.parse(payload.message)
 
-                // console.log('waterpump status: ' + jsonObject['state'])
+                console.log('waterpump status: ' + jsonObject['state'])
 
                 setOpen(true)
             }
@@ -70,24 +62,12 @@ const WaterPumpContent = () => {
         client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
 
         if (waterPumpState == "on") {
-            // console.log("waterPumpState == on")
-            // console.log("connectionStatus : " + connectionStatus)
-            setOpen(true)
+            console.log("waterPumpState == on")
         }
 
         if (waterPumpState == "off") {
-            // console.log("waterPumpState == off")
-            // console.log("connectionStatus : " + connectionStatus)
-            setOpen(true)
+            console.log("waterPumpState == off")
         }
-    };
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false)
     };
 
     return <Switch

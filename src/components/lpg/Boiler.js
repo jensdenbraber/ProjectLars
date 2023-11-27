@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Switch from '@mui/material/Switch';
-import Box from '@mui/material/Box';
-
-import { UseSubscription, UseMqttState } from '../hooks/mqtt'
+import { Box, Switch } from '@mui/material';
+import { UseMqttState } from '../../hooks/mqtt'
 
 const Boiler = () => {
 
     const topicName = "camper/actuators/boiler"
 
-    const { payload } = UseSubscription(topicName + '/out');
+    // const { payload } = UseSubscription(topicName + '/out');
     const { client } = UseMqttState();
 
     const boilerStates = {
@@ -76,7 +74,7 @@ const Boiler = () => {
         }
 
         setChecked50(event.target.checked);
-        setOpen(true);
+        // setOpen(true);
         // client.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
@@ -87,23 +85,23 @@ const Boiler = () => {
         }
 
         setChecked70(event.target.checked);
-        setOpen(true);
+        // setOpen(true);
         // client.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
 
-    const handleClick = () => {
-        setOpen(true);
-    };
+    // const handleClick = () => {
+    //     setOpen(true);
+    // };
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+    // const handleClose = (event, reason) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
 
-        setOpen(false);
-    };
+    //     setOpen(false);
+    // };
 
     return (
         <Box>

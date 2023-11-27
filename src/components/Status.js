@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import useMqttState from './hooks/mqtt/UseMqttState';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import { UseMqttState } from './hooks/mqtt';
+import { MuiAlert, Snackbar } from '@mui/material';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function Status() {
-    const { connectionStatus } = useMqttState();
+    const { connectionStatus } = UseMqttState();
 
     const [open, setOpen] = React.useState(false);
 

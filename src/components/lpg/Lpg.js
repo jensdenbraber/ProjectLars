@@ -1,4 +1,5 @@
-import Box from '@mui/material/Box';
+import React from 'react';
+import { Box } from '@mui/material';
 import Boiler from './Boiler';
 
 const Lpg = (props) => {

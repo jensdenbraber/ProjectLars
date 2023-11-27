@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { AcUnit } from '@mui/icons-material';
-import { UseSubscription } from '../hooks/mqtt'
+import { UseSubscription } from '../../hooks/mqtt'
 
 const Freezer = () => {
 
     const { message } = UseSubscription("camper/sensors/vriezer");
-
-    // useEffect(() => {
-    //     const record = {
-    //         topic: 'zigbee2mqtt/Vriezer',
-    //         // topic: 'camper/sensors/temperatures/48:3f:da:c:74:fe/out',
-    //         qos: 0
-    //     };
-
-    //     props.connection.subscribe(record);
-    // }, [props.connection])
-
     const [temperature, setTemperature] = useState(null)
 
     useEffect(() => {
@@ -23,8 +12,6 @@ const Freezer = () => {
             if (message.message) {
 
                 var jsonObject = JSON.parse(message.message)
-
-                // console.log("jsonObject: " + jsonObject)
 
                 // {"battery":74,"humidity":85.57,"linkquality":57,"pressure":1025,"temperature":-10.42,"voltage":2955}
                 setTemperature(jsonObject['temperature'])

@@ -1,57 +1,55 @@
 import '../styles/App.css';
 import React from 'react';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import Camper from "../components/layout/Camper";
-import Paper from '@mui/material/Paper';
+import { Box, Button, Paper} from '@mui/material';
+// import Camper from "../layouts/Camper";
 import WaterTankLevels from '../components/water/waterTankLevels/WaterTankLevels';
-import Lpg from '../components/lpg/Lpg';
+// import Lpg from '../components/lpg/Lpg';
 import Clock from '../components/Clock';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Temperatures from '../components/temperatures/Temperatures';
-import PowerLevels from '../components/power/PowerLevels';
+// import PowerLevels from '../components/power/PowerLevels';
 import Boiler from '../components/lpg/Boiler'
-import HooksConnection from '../components/hooks/mqtt/Connection'
+import HooksConnection from '../hooks/mqtt/Connection'
 
-const style = {
-  position: 'absolute',
-  top: '0%',
-  left: '0%',
-  width: '100%',
-  height: '100%',
-  bgcolor: '#000000',
-  color: '#A7A9AB',
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
+// const style = {
+//   position: 'absolute',
+//   top: '0%',
+//   left: '0%',
+//   width: '100%',
+//   height: '100%',
+//   bgcolor: '#000000',
+//   color: '#A7A9AB',
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+// };
 
-const styleSubBox = {
-  textAlign: "center",
-}
+// const styleSubBox = {
+//   textAlign: "center",
+// }
 
-const styleTypography = {
-  fontSize: "90px"
-}
+// const styleTypography = {
+//   fontSize: "90px"
+// }
 
 export default function App() {
 
-  const [value, setValue] = React.useState(0);
+  // const [value, setValue] = React.useState(0);
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
-  const tabs = [
-    { 'label': 'Camper', 'component': <Camper /> },
-    { 'label': 'Water tank levels', 'component': <WaterTankLevels /> },
-    { 'label': 'LPG', 'component': <Lpg /> },
-    { 'label': 'Temperatures', 'component': <Temperatures /> },
-    { 'label': 'Power', 'component': <PowerLevels /> }
-  ]
+  // const tabs = [
+  //   { 'label': 'Camper', 'component': <Camper /> },
+  //   { 'label': 'Water tank levels', 'component': <WaterTankLevels /> },
+  //   { 'label': 'LPG', 'component': <Lpg /> },
+  //   { 'label': 'Temperatures', 'component': <Temperatures /> },
+  //   { 'label': 'Power', 'component': <PowerLevels /> }
+  // ]
 
-  const [camper, setCamper] = React.useState(true);
-  const [waterTankLevels, setWaterTankLevels] = React.useState(false);
+  // const [camper, setCamper] = React.useState(true);
+  // const [waterTankLevels, setWaterTankLevels] = React.useState(false);
   // const [lpg, setLpg] = React.useState(false);
   // const [temperatures, setTemperatures] = React.useState(false);
   // const [powerLevels, setPowerLevels] = React.useState(false);
@@ -60,7 +58,7 @@ export default function App() {
 
   let [isFullScreen, setFullScreen] = React.useState(true);
 
-  const onButtonClick = (event) => {
+  const onButtonClick = () => {
     console.log(isFullScreen)
     if (isFullScreen) {
       handle.enter()
@@ -75,10 +73,7 @@ export default function App() {
   return (
     <>
       <FullScreen handle={handle}>
-        {/* <Boiler /> */}
         <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
-
-          {/* <Status /> */}
           <Box sx={{
             width: 1024,
             height: 600,

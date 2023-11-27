@@ -1,7 +1,7 @@
 import React from 'react';
-import Clock from '../Clock'
-import CleanWaterContent from '../water/waterTankLevels/CleanWaterContent'
-import FloatingBox2 from '../FloatingBox2';
+import Clock from '../components/Clock'
+import CleanWaterContent from '../components/water/waterTankLevels/CleanWaterContent'
+import FloatingBox2 from '../components/FloatingBox2';
 
 export default function Camper(props) {
 
