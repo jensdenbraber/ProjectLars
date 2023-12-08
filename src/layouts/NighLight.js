@@ -1,10 +1,5 @@
-import React, { } from 'react';
-import moment from 'moment'
-import FloatingBox from './FloatingBox';
-import { ModeNight } from '@mui/icons-material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import React from 'react';
+import { Box, Modal, Typography } from '@mui/material';
 import { ReactComponent as Logo } from '../polarbear.svg';
 import Clock from '../components/Clock'
 

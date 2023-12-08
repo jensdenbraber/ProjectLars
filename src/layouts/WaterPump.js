@@ -1,6 +1,6 @@
 import React from 'react';
-import WaterPumpContent from './WaterPumpContent';
-import Box from '@mui/material/Box';
+import WaterPumpContent from '../components/water/WaterPump';
+import { Box } from '@mui/material';
 
 const WaterPump = (props) => {
 

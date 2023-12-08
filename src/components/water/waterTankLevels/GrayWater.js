@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Switch from '@mui/material/Switch';
+import { Switch } from '@mui/material';
 
 const GrayWater = (props) => {
 
