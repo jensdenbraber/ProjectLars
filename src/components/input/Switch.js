@@ -17,8 +17,8 @@ export function Switch({ ...props }) {
                         },
                 },
                 '& .MuiSwitch-thumb': {
-                        width: 36,
-                        height: 36,
+                        width: 34,
+                        height: 34,
                 },
                 '& .MuiSwitch-track': {
                         borderRadius: 20 / 2,
