@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Switch } from '@mui/material';
+import { Box } from '@mui/material';
+import { Switch } from '../input/Switch';
 import { UseMqttState } from '../../hooks/mqtt'
 
 const Boiler = () => {
@@ -36,7 +37,7 @@ const Boiler = () => {
     }, [boilerState, boilerStates, checked50, checked70])
 
     const handleChange50 = (event) => {
-        
+
         if (checked70) {
             setChecked70(false);
         }
