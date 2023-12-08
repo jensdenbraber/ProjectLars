@@ -3,10 +3,10 @@ import React from 'react';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Box, Button, Paper} from '@mui/material';
 // import Camper from "../layouts/Camper";
-import WaterTankLevels from '../components/water/waterTankLevels/WaterTankLevels';
+import WaterTankLevels from '../layouts/WaterTankLevels';
 // import Lpg from '../components/lpg/Lpg';
 import Clock from '../components/Clock';
-import Temperatures from '../components/temperatures/Temperatures';
+import Temperatures from '../layouts/Temperatures';
 // import PowerLevels from '../components/power/PowerLevels';
 import Boiler from '../components/lpg/Boiler'
 import HooksConnection from '../hooks/mqtt/Connection'

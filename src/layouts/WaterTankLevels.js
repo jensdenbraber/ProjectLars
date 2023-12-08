@@ -1,14 +1,18 @@
 import React from 'react';
 // import GrayWater from './grayWater';
-import CleanWater from './CleanWater';
+import CleanWater from '../components/water/waterTankLevels/CleanWater';
 import { Box } from '@mui/material';
 
-const WaterTankLevels = (props) => {
+const WaterTankLevels = () => {
 
     return (
         <Box>
-            <CleanWater {...props}>
-            </CleanWater>
+            <Box>
+                <h2>
+                    Schoon water tank
+                </h2>
+                <CleanWater />
+            </Box>
             {/* <GrayWater {...props}>
                 </GrayWater> */}
         </Box>

@@ -20,12 +20,10 @@ const Refrigerator = () => {
     }, [message])
 
     return (
-        <>
-            <div>
-                <AcUnit style={{ fill: "blue" }} />
-                <span>Refrigerator {temperature} &deg;C</span>
-            </div>
-        </>
+        <div>
+            <AcUnit style={{ fill: "blue" }} />
+            <span>Refrigerator {temperature} &deg;C</span>
+        </div>
     );
 }
 

@@ -5,7 +5,7 @@ import Boiler from './Water/Boiler/Boiler'
 import PowerLevels from './Power/PowerLevels';
 import Temperatures from './Temperatures/Temperatures'
 import Gas from './LPG/Gas/GasLevels'
-import Clock from './Clock'
+import Clock from '../components/Clock'
 import NighLight from './NighLight'
 import FloatingBox from './FloatingBox';
 

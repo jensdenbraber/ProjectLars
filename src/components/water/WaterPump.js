@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Switch } from '@mui/material';
-import { UseSubscription, UseMqttState } from '../../../hooks/mqtt'
+import { UseSubscription, UseMqttState } from '../../hooks/mqtt'
 
-const WaterPumpContent = () => {
+const WaterPump = () => {
 
     const waterPumpStates = {
         0: "off",
@@ -21,18 +21,7 @@ const WaterPumpContent = () => {
 
     useEffect(() => {
 
-        // console.log("payload: " + payload)
-        // console.log("payload.topic: " + payload?.topic.toString())
-
-        if (payload) {
-            // console.log("payload!!!!!")
-        }
-
         if (payload?.topic?.includes(topicName)) {
-            // console.log("payload.topic: " + payload.topic.toString())
-
-            // console.log("payload.message: " + payload.message)
-
             if (payload.message) {
 
                 var jsonObject = JSON.parse(payload.message)
@@ -60,14 +49,6 @@ const WaterPumpContent = () => {
         setWaterPumpSwitchState(event.target.checked)
 
         client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
-
-        if (waterPumpState == "on") {
-            console.log("waterPumpState == on")
-        }
-
-        if (waterPumpState == "off") {
-            console.log("waterPumpState == off")
-        }
     };
 
     return <Switch
@@ -76,4 +57,4 @@ const WaterPumpContent = () => {
     />
 }
 
-export default WaterPumpContent;
+export default WaterPump;

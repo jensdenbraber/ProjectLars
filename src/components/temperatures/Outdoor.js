@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Forest } from '@mui/icons-material';
-import { UseSubscription } from '../../hooks/mqtt'
+import { UseSubscription } from '../../hooks'
 
 const Outdoor = () => {
 
@@ -20,12 +20,10 @@ const Outdoor = () => {
     }, [message])
 
     return (
-        <>
-            <div>
-                <Forest style={{ fill: "green" }} />
-                <span>Outdoor {temperature} &deg;C</span>
-            </div>
-        </>
+        <div>
+            <Forest style={{ fill: "green" }} />
+            <span>Outdoor {temperature} &deg;C</span>
+        </div>
     );
 }
 

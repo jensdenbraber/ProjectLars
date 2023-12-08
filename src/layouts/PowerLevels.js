@@ -1,6 +1,6 @@
 import React from 'react';
-import HouseHoldBattery from './HouseholdBattery';
-import StartingBattery from './StartingBattery';
+import HouseHoldBattery from '../components/power/HouseholdBattery';
+import StartingBattery from '../components/power/StartingBattery';
 
 const PowerLevels = (props) => {
 

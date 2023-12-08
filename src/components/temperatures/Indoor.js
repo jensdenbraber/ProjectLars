@@ -20,10 +20,10 @@ const Indoor = () => {
     }, [message])
 
     return (
-        <>
+        <div>
             <Thermostat style={{ fill: "blue" }} />
             <span>Indoor {temperature} &deg;C</span>
-        </>
+        </div>
     );
 }
 

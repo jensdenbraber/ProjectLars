@@ -20,12 +20,10 @@ const Freezer = () => {
     }, [message])
 
     return (
-        <>
-            <div>
-                <AcUnit style={{ fill: "darkblue" }} />
-                <span>Freezer {temperature} &deg;C</span>
-            </div>
-        </>
+        <div>
+            <AcUnit style={{ fill: "darkblue" }} />
+            <span>Freezer {temperature} &deg;C</span>
+        </div>
     );
 }
 

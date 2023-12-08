@@ -1,18 +1,30 @@
-import React from 'react';
-import CleanWaterContent from './CleanWaterContent'
-import WaterPump from '../waterPump1/WaterPump';
-import { Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { UseSubscription } from '../../../hooks/mqtt';
+import tapWaterIcon from '../../../assets/TapWater.svg'
 
-const CleanWater = (props) => {
+const CleanWater = () => {
+
+    const { message } = UseSubscription([
+        'camper/sensors/watertanklevels/48:3f:da:c:74:fe/out'
+    ]);
+
+    const [waterLevel, setWaterLevel] = useState(null)
+
+    useEffect(() => {
+
+        if (message?.message != null) {
+
+            const JSONObject = JSON.parse(message?.message)
+
+            setWaterLevel(JSONObject['waterlevel'])
+        }
+    }, [message])
 
     return (
-        <Box>
-            <h2>
-                Schoon water tank
-            </h2>
-            <CleanWaterContent {...props} />
-            <WaterPump {...props} />
-        </Box>
+        <div className="relative">
+            <img src={tapWaterIcon} alt="TapWater" style={{ height: "20%", width: "20%" }} />
+            <span>Clean {waterLevel} %</span>
+        </div>
     );
 }
 

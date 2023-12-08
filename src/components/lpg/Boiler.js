@@ -5,8 +5,6 @@ import { UseMqttState } from '../../hooks/mqtt'
 const Boiler = () => {
 
     const topicName = "camper/actuators/boiler"
-
-    // const { payload } = UseSubscription(topicName + '/out');
     const { client } = UseMqttState();
 
     const boilerStates = {
@@ -19,38 +17,8 @@ const Boiler = () => {
     const [checked70, setChecked70] = useState(false);
     const [boilerState, setBoilerState] = useState(boilerStates[0])
 
-    // useEffect(() => {
-
-    //     console.log("payload: " + payload)
-
-    //     if (payload?.topic?.includes(topicName)) {
-    //         console.log("payload.topic: " + payload.topic.toString())
-
-    //         console.log("payload.message: " + payload.message)
-
-    //         if (payload.message) {
-
-    //             // console.log('Boiler received: ' + payload.message.toString())
-
-    //             var jsonObject = JSON.parse(payload.message)
-
-    //             // console.log('JSONObject: ' + jsonObject)
-    //             console.log('[Payload]: ' + payload)
-    //             console.log('Boiler status: ' + jsonObject['state'])
-
-    //             setOpen(true)
-    //         }
-    //     }
-    // }, [payload])
-
     useEffect(() => {
-
-        // console.log("boilerState: " + boilerState)
-        // console.log("published...")
-
         client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
-
-
     }, [boilerState, boilerStates, client])
 
     useEffect(() => {
@@ -68,14 +36,12 @@ const Boiler = () => {
     }, [boilerState, boilerStates, checked50, checked70])
 
     const handleChange50 = (event) => {
-
+        
         if (checked70) {
             setChecked70(false);
         }
 
         setChecked50(event.target.checked);
-        // setOpen(true);
-        // client.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
 
     const handleChange70 = (event) => {
@@ -85,32 +51,10 @@ const Boiler = () => {
         }
 
         setChecked70(event.target.checked);
-        // setOpen(true);
-        // client.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
     };
-
-    // const [open, setOpen] = React.useState(false);
-
-    // const handleClick = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleClose = (event, reason) => {
-    //     if (reason === 'clickaway') {
-    //         return;
-    //     }
-
-    //     setOpen(false);
-    // };
 
     return (
         <Box>
-            {/* <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Boiler status: {boilerState}
-                </Alert>
-            </Snackbar> */}
-
             <h2>
                 Boiler
             </h2>

@@ -22,5 +22,5 @@ export default function Camper(props) {
                 <Clock />
             </div>
         </div>
-    );
+    )
 }
