@@ -20,7 +20,7 @@ const GasLevels = (props) => {
         if (payload.topic) {
             if (payload.message) {
 
-                var jsonObject = JSON.parse(payload.message)
+                const jsonObject = JSON.parse(payload.message)
 
                 setGasLevel(jsonObject['gaslevel'])
             }

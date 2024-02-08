@@ -14,9 +14,9 @@ const CleanWater = () => {
 
         if (message?.message != null) {
 
-            const JSONObject = JSON.parse(message?.message)
+            const jsonObject = JSON.parse(message?.message)
 
-            setWaterLevel(JSONObject['waterlevel'])
+            setWaterLevel(jsonObject['waterlevel'])
         }
     }, [message])
 
