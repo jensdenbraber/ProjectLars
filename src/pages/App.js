@@ -9,44 +9,12 @@ import Clock from '../components/Clock';
 import Temperatures from '../layouts/Temperatures';
 // import PowerLevels from '../components/power/PowerLevels';
 import Boiler from '../components/lpg/Boiler'
-import HooksConnection from '../hooks/mqtt/Connection'
-
-// const style = {
-//   position: 'absolute',
-//   top: '0%',
-//   left: '0%',
-//   width: '100%',
-//   height: '100%',
-//   bgcolor: '#000000',
-//   color: '#A7A9AB',
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-// };
-
-// const styleSubBox = {
-//   textAlign: "center",
-// }
-
-// const styleTypography = {
-//   fontSize: "90px"
-// }
+import HooksConnection from '../components/hooks/mqtt/Connection'
 
 export default function App() {
 
   // const [value, setValue] = React.useState(0);
-
   // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-
-  // const tabs = [
-  //   { 'label': 'Camper', 'component': <Camper /> },
-  //   { 'label': 'Water tank levels', 'component': <WaterTankLevels /> },
-  //   { 'label': 'LPG', 'component': <Lpg /> },
-  //   { 'label': 'Temperatures', 'component': <Temperatures /> },
-  //   { 'label': 'Power', 'component': <PowerLevels /> }
-  // ]
 
   // const [camper, setCamper] = React.useState(true);
   // const [waterTankLevels, setWaterTankLevels] = React.useState(false);
@@ -91,17 +59,17 @@ export default function App() {
             {/* <NightLight /> */}
           </Box>
 
-          {/* {camper && <Camper />}
+        {/* {camper && <Camper />}
       {waterTankLevels && <WaterPumpContent />} */}
 
-          {/* <Camper display={{ camper }} /> */}
-          {/* <WaterTankLevels display={{ waterTankLevels }} /> */}
-          {/* {lpg && <Lpg />}
+        {/* <Camper display={{ camper }} /> */}
+        {/* <WaterTankLevels display={{ waterTankLevels }} /> */}
+        {/* {lpg && <Lpg />}
       {temperatures && <Temperatures />}
       {powerLevels && <PowerLevels />}
       {nightMode && <PowerLevels />} */}
 
-          {/* <Modal
+        {/* <Modal
         open={open}
         onClick={handleClose}
         onClose={handleClose}
@@ -118,11 +86,9 @@ export default function App() {
               </Box>
             </Modal> */}
 
-          <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
 
-
-
-            {/* <Button onClick={() => {
+          {/* <Button onClick={() => {
           // alert('Camper');
           setCamper(!camper)
         }}> Camper</Button>
@@ -133,12 +99,11 @@ export default function App() {
         }}
       >Water Tank Levels</Button> */}
 
-            <Button onClick={() => window.location.reload()}>Refresh page</Button>
-            <Button onClick={onButtonClick}>Full screen</Button>
-            {/* <div onClick={() => setOpen(true)}>Night mode</div> */}
+          <Button onClick={() => window.location.reload()}>Refresh page</Button>
+          <Button onClick={onButtonClick}>Full screen</Button>
+          {/* <div onClick={() => setOpen(true)}>Night mode</div> */}
 
-            {/*
-
+          {/*
 <BottomNavigation
 showLabels
 value={value}
@@ -202,9 +167,8 @@ onChange={(event, newValue) => {
           <BottomNavigationAction label="NightMode" value="5" icon={<ModeNightIcon />} /> 
           </BottomNavigation>
         */}
-          </Paper>
-        </HooksConnection >
-      </FullScreen>
-    </>
+        </Paper>
+      </HooksConnection >
+    </FullScreen>
   )
 }
