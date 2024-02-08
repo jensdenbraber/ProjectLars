@@ -1,13 +1,10 @@
 import '../styles/App.css';
 import React from 'react';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { Box, Button, Paper} from '@mui/material';
-// import Camper from "../layouts/Camper";
+import { Box, Button, Paper } from '@mui/material';
 import WaterTankLevels from '../layouts/WaterTankLevels';
-// import Lpg from '../components/lpg/Lpg';
 import Clock from '../components/Clock';
 import Temperatures from '../layouts/Temperatures';
-// import PowerLevels from '../components/power/PowerLevels';
 import Boiler from '../components/lpg/Boiler'
 import HooksConnection from '../components/hooks/mqtt/Connection'
 
@@ -39,25 +36,24 @@ export default function App() {
   }
 
   return (
-    <>
-      <FullScreen handle={handle}>
-        <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
-          <Box sx={{
-            width: 1024,
-            height: 600,
-            display: 'grid',
-            columnGap: 3,
-            rowGap: 1,
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            // justifyContent: 'space-evenly'
-          }}>
-            <WaterTankLevels />
-            <Boiler />
-            <Temperatures />
-            <Clock />
-            {/* <NightLight setOpen={open} /> */}
-            {/* <NightLight /> */}
-          </Box>
+    <FullScreen handle={handle}>
+      <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
+        <Box sx={{
+          width: 1024,
+          height: 600,
+          display: 'grid',
+          columnGap: 3,
+          rowGap: 1,
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          // justifyContent: 'space-evenly'
+        }}>
+          <WaterTankLevels />
+          <Boiler />
+          <Temperatures />
+          <Clock />
+          {/* <NightLight setOpen={open} /> */}
+          {/* <NightLight /> */}
+        </Box>
 
         {/* {camper && <Camper />}
       {waterTankLevels && <WaterPumpContent />} */}

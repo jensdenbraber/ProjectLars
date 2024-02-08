@@ -9,30 +9,30 @@ const Boiler = () => {
     const { client } = UseMqttState();
 
     const boilerStates = {
-        0: "off",
-        1: "50_degrees",
-        2: "70_degrees"
+        Off: "off",
+        d50: "50_degrees",
+        d70: "70_degrees"
     }
 
     const [checked50, setChecked50] = useState(false);
     const [checked70, setChecked70] = useState(false);
-    const [boilerState, setBoilerState] = useState(boilerStates[0])
+    const [boilerState, setBoilerState] = useState(boilerStates.Off)
 
     useEffect(() => {
-        client?.publish(topicName + '/in', "{ \"state\": \"" + boilerState + "\" }", 2);
+        client?.publish(`${topicName}/in`, `{ \"state\": \"${boilerState}\" }`, 2);
     }, [boilerState, boilerStates, client])
 
     useEffect(() => {
         if (checked50) {
-            setBoilerState(boilerStates[1])
+            setBoilerState(boilerStates.d50)
         }
 
         if (checked70) {
-            setBoilerState(boilerStates[2])
+            setBoilerState(boilerStates.d70)
         }
 
         if (!checked50 && !checked70) {
-            setBoilerState(boilerStates[0])
+            setBoilerState(boilerStates.Off)
         }
     }, [boilerState, boilerStates, checked50, checked70])
 

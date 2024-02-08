@@ -5,24 +5,24 @@ import { UseMqttState } from '../../hooks/mqtt'
 const WaterPump = () => {
 
     const waterPumpStates = {
-        0: "off",
-        1: "on"
+        Off: "off",
+        On: "on"
     }
 
     const topicName = "camper/actuators/waterpump"
     const { client } = UseMqttState();
 
-    const [waterPumpState, setWaterPumpState] = useState(waterPumpStates[0])
+    const [waterPumpState, setWaterPumpState] = useState(waterPumpStates.Off)
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
 
     useEffect(() => {
 
         if (waterPumpSwitchState) {
-            setWaterPumpState(waterPumpStates[0])
+            setWaterPumpState(waterPumpStates.Off)
         }
 
         if (!waterPumpSwitchState) {
-            setWaterPumpState(waterPumpStates[1])
+            setWaterPumpState(waterPumpStates.On)
         }
     }, [waterPumpSwitchState, waterPumpStates])
 
@@ -30,7 +30,7 @@ const WaterPump = () => {
 
         setWaterPumpSwitchState(event.target.checked)
 
-        client.publish(topicName + '/in', "{ \"id\": " + Date.now() + ", \"state\": \"" + waterPumpState + "\" }", 2)
+        client.publish(`${topicName}/in`, `{ \"id\": ${Date.now()}, \"state\": \"${waterPumpState}\" }`, 2)
     };
 
     return <Switch

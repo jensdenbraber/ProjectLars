@@ -21,11 +21,9 @@ const GrayWater = (props) => {
         if (payload.topic) {
             if (payload.message) {
 
-                var JSONObject = JSON.parse(payload.message)
+                const jsonObject = JSON.parse(payload.message)
 
-                // console.log('Gray water level: ' + JSONObject['waterlevel'])
-
-                setWaterLevel(JSONObject['waterlevel'])
+                setWaterLevel(jsonObject['waterlevel'])
             }
         }
     }, [payload])

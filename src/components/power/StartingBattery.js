@@ -20,7 +20,7 @@ const StartingBattery = (props) => {
         if (payload.topic) {
             if (payload.message) {
 
-                var jsonObject = JSON.parse(payload.message)
+                const jsonObject = JSON.parse(payload.message)
 
                 setBatteryLevel(jsonObject['batterylevel'])
             }
