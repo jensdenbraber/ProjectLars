@@ -19,7 +19,7 @@ const Boiler = () => {
     const [boilerState, setBoilerState] = useState(boilerStates.Off)
 
     useEffect(() => {
-        client?.publish(`${topicName}/in`, `{ \"state\": \"${boilerState}\" }`, 2);
+        client?.publish(`${topicName}/in`, `{ "state": "${boilerState}" }`, 2);
     }, [boilerState, boilerStates, client])
 
     useEffect(() => {

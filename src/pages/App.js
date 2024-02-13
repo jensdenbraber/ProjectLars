@@ -6,7 +6,7 @@ import WaterTankLevels from '../layouts/WaterTankLevels';
 import Clock from '../components/Clock';
 import Temperatures from '../layouts/Temperatures';
 import Boiler from '../components/lpg/Boiler'
-import HooksConnection from '../components/hooks/mqtt/Connection'
+import HooksConnection from '../hooks/mqtt/Connection'
 
 export default function App() {
 

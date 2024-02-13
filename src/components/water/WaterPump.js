@@ -30,7 +30,7 @@ const WaterPump = () => {
 
         setWaterPumpSwitchState(event.target.checked)
 
-        client.publish(`${topicName}/in`, `{ \"id\": ${Date.now()}, \"state\": \"${waterPumpState}\" }`, 2)
+        client.publish(`${topicName}/in`, `{ "id": ${Date.now()}, "state": "${waterPumpState}" }`, 2)
     };
 
     return <Switch
