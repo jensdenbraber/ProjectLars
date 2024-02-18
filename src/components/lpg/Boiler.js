@@ -2,39 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Switch } from '../input/Switch';
 import { UseMqttState } from '../../hooks/mqtt'
+import BoilerStates from '../../constants/BoilerStates';
 
 const Boiler = () => {
 
     const topicName = "camper/actuators/boiler"
     const { client } = UseMqttState();
 
-    const boilerStates = {
-        Off: "off",
-        d50: "50_degrees",
-        d70: "70_degrees"
-    }
-
     const [checked50, setChecked50] = useState(false);
     const [checked70, setChecked70] = useState(false);
-    const [boilerState, setBoilerState] = useState(boilerStates.Off)
+    const [boilerState, setBoilerState] = useState(BoilerStates.Off)
 
     useEffect(() => {
         client?.publish(`${topicName}/in`, `{ "state": "${boilerState}" }`, 2);
-    }, [boilerState, boilerStates, client])
+    }, [boilerState, BoilerStates, client])
 
     useEffect(() => {
         if (checked50) {
-            setBoilerState(boilerStates.d50)
+            setBoilerState(BoilerStates.d50)
         }
 
         if (checked70) {
-            setBoilerState(boilerStates.d70)
+            setBoilerState(BoilerStates.d70)
         }
 
         if (!checked50 && !checked70) {
-            setBoilerState(boilerStates.Off)
+            setBoilerState(BoilerStates.Off)
         }
-    }, [boilerState, boilerStates, checked50, checked70])
+    }, [boilerState, BoilerStates, checked50, checked70])
 
     const handleChange50 = (event) => {
 

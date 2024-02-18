@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Switch } from '../input/Switch';
 import { UseMqttState } from '../../hooks/mqtt'
+import WaterPumpStates from '../../constants/BoilerStates';
 
 const WaterPump = () => {
-
-    const waterPumpStates = {
-        Off: "off",
-        On: "on"
-    }
 
     const topicName = "camper/actuators/waterpump"
     const { client } = UseMqttState();
 
-    const [waterPumpState, setWaterPumpState] = useState(waterPumpStates.Off)
+    const [waterPumpState, setWaterPumpState] = useState(WaterPumpStates.Off)
     const [waterPumpSwitchState, setWaterPumpSwitchState] = useState(false)
 
     useEffect(() => {
 
         if (waterPumpSwitchState) {
-            setWaterPumpState(waterPumpStates.Off)
+            setWaterPumpState(WaterPumpStates.Off)
         }
 
         if (!waterPumpSwitchState) {
-            setWaterPumpState(waterPumpStates.On)
+            setWaterPumpState(WaterPumpStates.On)
         }
-    }, [waterPumpSwitchState, waterPumpStates])
+    }, [waterPumpSwitchState, WaterPumpStates])
 
     const handleChange = (event) => {
 
