@@ -3,7 +3,7 @@ name: Dashboard build and test
 env:
   CI: false
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   buildAndTest:
