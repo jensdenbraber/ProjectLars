@@ -15,7 +15,6 @@
     "mqtt-pattern": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-full-screen": "^1.1.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
@@ -49,7 +48,6 @@
   },
   "devDependencies": {
     "eslint": "^8.53.0",
-    "eslint-plugin-react": "^7.33.2",
-    "gh-pages": "^3.2.3"
+    "eslint-plugin-react": "^7.33.2"
   }
 }

@@ -1,6 +1,5 @@
 import '../styles/App.css';
 import React from 'react';
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Box, Button, Paper } from '@mui/material';
 import WaterTankLevels from '../layouts/WaterTankLevels';
 import Clock from '../components/Clock';
@@ -19,53 +18,36 @@ export default function App() {
   // const [temperatures, setTemperatures] = React.useState(false);
   // const [powerLevels, setPowerLevels] = React.useState(false);
 
-  const handle = useFullScreenHandle();
-
-  let [isFullScreen, setFullScreen] = React.useState(true);
-
-  const onButtonClick = () => {
-    console.log(isFullScreen)
-    if (isFullScreen) {
-      handle.enter()
-      setFullScreen(false)
-    }
-    else {
-      setFullScreen(true)
-      handle.exit()
-    }
-  }
-
   return (
-    <FullScreen handle={handle}>
-      <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
-        <Box sx={{
-          width: 1024,
-          height: 600,
-          display: 'grid',
-          columnGap: 3,
-          rowGap: 1,
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          // justifyContent: 'space-evenly'
-        }}>
-          <WaterTankLevels />
-          <Boiler />
-          <Temperatures />
-          <Clock />
-          {/* <NightLight setOpen={open} /> */}
-          {/* <NightLight /> */}
-        </Box>
+    <HooksConnection brokerUrl="ws://raspberrypi4:9001" options={{ keepalive: 0 }}>
+      <Box sx={{
+        width: 1024,
+        height: 600,
+        display: 'grid',
+        columnGap: 3,
+        rowGap: 1,
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        // justifyContent: 'space-evenly'
+      }}>
+        <WaterTankLevels />
+        <Boiler />
+        <Temperatures />
+        <Clock />
+        {/* <NightLight setOpen={open} /> */}
+        {/* <NightLight /> */}
+      </Box>
 
-        {/* {camper && <Camper />}
+      {/* {camper && <Camper />}
       {waterTankLevels && <WaterPumpContent />} */}
 
-        {/* <Camper display={{ camper }} /> */}
-        {/* <WaterTankLevels display={{ waterTankLevels }} /> */}
-        {/* {lpg && <Lpg />}
+      {/* <Camper display={{ camper }} /> */}
+      {/* <WaterTankLevels display={{ waterTankLevels }} /> */}
+      {/* {lpg && <Lpg />}
       {temperatures && <Temperatures />}
       {powerLevels && <PowerLevels />}
       {nightMode && <PowerLevels />} */}
 
-        {/* <Modal
+      {/* <Modal
         open={open}
         onClick={handleClose}
         onClose={handleClose}
@@ -82,9 +64,9 @@ export default function App() {
               </Box>
             </Modal> */}
 
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
 
-          {/* <Button onClick={() => {
+        {/* <Button onClick={() => {
           // alert('Camper');
           setCamper(!camper)
         }}> Camper</Button>
@@ -95,11 +77,10 @@ export default function App() {
         }}
       >Water Tank Levels</Button> */}
 
-          <Button onClick={() => window.location.reload()}>Refresh page</Button>
-          <Button onClick={onButtonClick}>Full screen</Button>
-          {/* <div onClick={() => setOpen(true)}>Night mode</div> */}
+        <Button onClick={() => window.location.reload()}>Refresh page</Button>
+        {/* <div onClick={() => setOpen(true)}>Night mode</div> */}
 
-          {/*
+        {/*
 <BottomNavigation
 showLabels
 value={value}
@@ -163,8 +144,7 @@ onChange={(event, newValue) => {
           <BottomNavigationAction label="NightMode" value="5" icon={<ModeNightIcon />} /> 
           </BottomNavigation>
         */}
-        </Paper>
-      </HooksConnection >
-    </FullScreen>
+      </Paper>
+    </HooksConnection >
   )
 }
